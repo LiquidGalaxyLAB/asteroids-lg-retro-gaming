@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lg_retro_gaming/screens/Controller.dart';
 import 'package:lg_retro_gaming/screens/Home.dart';
 
 void main() {
@@ -13,6 +14,7 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => Home(),
+        '/controller': (context) => Controller(),
       },
     );
   }

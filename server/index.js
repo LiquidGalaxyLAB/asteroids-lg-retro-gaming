@@ -4,6 +4,7 @@ var app = express();
 var http = require('http').createServer(app);
 var io = require('socket.io')(http);
 var players = {};
+var currentGame = ''
 var id;
 
 app.use(express.static(__dirname + '/public'))
@@ -13,7 +14,7 @@ app.get('/:id', (req, res) => {
 
     res.sendFile(__dirname + '/public/index.html');
 })
-    
+
 //sockets
 io.on("connect", (socket) => {
     console.log(`User connected with id: ${socket.id}!`);
@@ -26,20 +27,25 @@ io.on("connect", (socket) => {
     }
 
     //update player position
-    socket.on("update-player", function(dir){
-        console.log("Update player: ", dir);
+    socket.on("update-player", function (dir) {
+        console.log(`Update player[${socket.id}]:`, dir);
     })
 
     //open game based on the name given
-    socket.on("open-game", function(game) {
-        console.log("Open game: ", game);
+    socket.on("open-game", function (game) {
+        currentGame = game
+        console.log("Open game:", game);
+    })
+
+    socket.on("close-game", function () {
+        console.log(`Close ${currentGame}.`)
     })
 
     //remove from players object when they disconnect
-    socket.on("disconnect", function() {
-        console.log(`Player with id ${socket.id} disconnected!`);
+    socket.on("disconnect", function () {
+        console.log(`User with id ${socket.id} disconnected!`);
 
-        delete players[socket.id]; 
+        delete players[socket.id];
     })
 })
 

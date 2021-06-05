@@ -24,7 +24,23 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Text("Liquid Galaxy Retro Gaming"),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text("Liquid Galaxy Retro Gaming"),
+            TextButton(
+              onPressed: hasConnected
+                  ? () {
+                      socket.emit("open-game", 'gameName');
+                      Navigator.pushNamed(context, "/controller", arguments: {
+                        'currentGame': 'gameName'
+                      }); //open controller
+                    }
+                  : null,
+              child: Text("Open Game"),
+            )
+          ],
+        ),
       ),
     );
   }
@@ -46,7 +62,11 @@ class _HomeState extends State<Home> {
       socket.connect();
 
       socket.on(
-          'connect', (_) => print('Connect to socket with id: ${socket.id}'));
+          'connect',
+          (_) => setState(() {
+                hasConnected = true;
+                print('Connect to socket with id: ${socket.id}');
+              }));
       setState(() {
         hasConnected = true;
       });
