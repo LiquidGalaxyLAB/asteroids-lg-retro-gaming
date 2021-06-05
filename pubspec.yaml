@@ -27,3 +27,8 @@ flutter:
   assets:
     - .env
     - assets/
+
+  fonts:
+    - family: RetroFont
+      fonts:
+        - asset: fonts/RetroFont.ttf

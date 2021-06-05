@@ -43,21 +43,32 @@ class _HomeState extends State<Home> {
 
     return SafeArea(
       child: Scaffold(
+        backgroundColor: Colors.blueGrey.shade100,
         body: OrientationBuilder(
           builder: (BuildContext context, Orientation orientation) {
             return orientation == Orientation.portrait
-                ? portraiMode(screenSize)
-                : landscapeMode(screenSize);
+                ? portraiMode(screenSize, context)
+                : landscapeMode(screenSize, context);
           },
         ),
       ),
     );
   }
 
-  Widget portraiMode(Size screenSize) {
+  Widget portraiMode(Size screenSize, BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
+        Padding(
+          padding: EdgeInsets.only(bottom: screenSize.height * 0.1),
+          child: Text(
+            "Liquid Galaxy Retro Gaming",
+            style: TextStyle(
+              fontFamily: 'RetroFont',
+              fontSize: screenSize.height * 0.035,
+            ),
+          ),
+        ),
         Stack(children: <Widget>[
           CarouselSlider(
             items: imageSliders,
@@ -92,14 +103,62 @@ class _HomeState extends State<Home> {
             ),
           ),
         ]),
+        Padding(
+          padding: EdgeInsets.only(top: screenSize.height * 0.1),
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(screenSize.height * 0.1),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.5),
+                  spreadRadius: 3,
+                  blurRadius: 4,
+                  offset: Offset(3, 3), // changes position of shadow
+                ),
+              ],
+            ),
+            child: TextButton(
+              onPressed: () => openGame(context),
+              child: Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Text(
+                  "OPEN GAME",
+                  style: TextStyle(
+                    fontFamily: 'RetroFont',
+                    fontSize: screenSize.height * 0.025,
+                  ),
+                ),
+              ),
+              style: ButtonStyle(
+                foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                backgroundColor: MaterialStateProperty.all<Color>(Colors.black),
+                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                  RoundedRectangleBorder(
+                    borderRadius:
+                        BorderRadius.circular(screenSize.height * 0.1),
+                    side: BorderSide(color: Colors.black),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
       ],
     );
   }
 
-  Widget landscapeMode(Size screenSize) {
+  Widget landscapeMode(Size screenSize, BuildContext context) {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
+        Text(
+          "Liquid Galaxy Retro Gaming",
+          style: TextStyle(
+            fontFamily: 'RetroFont',
+            fontSize: screenSize.height * 0.075,
+          ),
+        ),
         Stack(children: <Widget>[
           CarouselSlider(
             items: imageSliders,
@@ -108,10 +167,10 @@ class _HomeState extends State<Home> {
             carouselController: _controller,
           ),
           Positioned(
-            bottom: screenSize.height * 0.15,
+            bottom: screenSize.height * 0.16,
             left: screenSize.width * 0.1,
             child: IconButton(
-              iconSize: screenSize.height * 0.2,
+              iconSize: screenSize.height * 0.15,
               splashRadius: 0.1,
               icon: const Icon(Icons.arrow_back_ios),
               onPressed: () {
@@ -120,10 +179,10 @@ class _HomeState extends State<Home> {
             ),
           ),
           Positioned(
-            bottom: screenSize.height * 0.15,
+            bottom: screenSize.height * 0.16,
             right: screenSize.width * 0.1,
             child: IconButton(
-              iconSize: screenSize.height * 0.2,
+              iconSize: screenSize.height * 0.15,
               splashRadius: 0.1,
               icon: const Icon(Icons.arrow_forward_ios),
               onPressed: () {
@@ -132,6 +191,43 @@ class _HomeState extends State<Home> {
             ),
           ),
         ]),
+        Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(screenSize.height * 0.1),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.5),
+                spreadRadius: 3,
+                blurRadius: 4,
+                offset: Offset(3, 3), // changes position of shadow
+              ),
+            ],
+          ),
+          child: TextButton(
+            onPressed: () => openGame(context),
+            child: Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Text(
+                "OPEN GAME",
+                style: TextStyle(
+                  fontFamily: 'RetroFont',
+                  fontSize: screenSize.height * 0.035,
+                ),
+              ),
+            ),
+            style: ButtonStyle(
+              foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+              backgroundColor: MaterialStateProperty.all<Color>(Colors.black),
+              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(screenSize.height * 0.1),
+                  side: BorderSide(color: Colors.black),
+                ),
+              ),
+            ),
+          ),
+        ),
       ],
     );
   }
@@ -164,5 +260,14 @@ class _HomeState extends State<Home> {
     } catch (e) {
       print(e.toString());
     }
+  }
+
+  void openGame(BuildContext context) {
+    socket.emit('open-game', 'gameName');
+    Navigator.pushNamed(
+      context,
+      '/controller',
+      arguments: {'currentGame': 'gameName'},
+    );
   }
 }
