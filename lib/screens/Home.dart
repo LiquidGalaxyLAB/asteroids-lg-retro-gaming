@@ -1,7 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:socket_io_client/socket_io_client.dart';
-// import 'package:flutter_dotenv/flutter_dotenv.dart' as DotEnv;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:carousel_slider/carousel_controller.dart';
+import 'package:carousel_slider/carousel_options.dart';
+import 'package:carousel_slider/carousel_slider.dart';
+
+final List<String> imgList = [
+  'assets/pacman.png',
+  'assets/pong.png',
+  'assets/snake.png'
+];
+
+final List<Widget> imageSliders = imgList
+    .map((item) => Container(
+          child: Center(
+            child: Image.asset(item, fit: BoxFit.contain),
+          ),
+        ))
+    .toList();
 
 class Home extends StatefulWidget {
   @override
@@ -13,6 +29,7 @@ class _HomeState extends State<Home> {
   late String? ip;
   late String? port;
   bool hasConnected = false;
+  final CarouselController _controller = CarouselController();
 
   @override
   void initState() {
@@ -22,26 +39,100 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text("Liquid Galaxy Retro Gaming"),
-            TextButton(
-              onPressed: hasConnected
-                  ? () {
-                      socket.emit("open-game", 'gameName');
-                      Navigator.pushNamed(context, "/controller", arguments: {
-                        'currentGame': 'gameName'
-                      }); //open controller
-                    }
-                  : null,
-              child: Text("Open Game"),
-            )
-          ],
+    Size screenSize = MediaQuery.of(context).size;
+
+    return SafeArea(
+      child: Scaffold(
+        body: OrientationBuilder(
+          builder: (BuildContext context, Orientation orientation) {
+            return orientation == Orientation.portrait
+                ? portraiMode(screenSize)
+                : landscapeMode(screenSize);
+          },
         ),
       ),
+    );
+  }
+
+  Widget portraiMode(Size screenSize) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Stack(children: <Widget>[
+          CarouselSlider(
+            items: imageSliders,
+            options: CarouselOptions(
+              enlargeCenterPage: true,
+              height: screenSize.height * 0.3,
+            ),
+            carouselController: _controller,
+          ),
+          Positioned(
+            bottom: screenSize.height * 0.12,
+            left: screenSize.width * 0.01,
+            child: IconButton(
+              iconSize: screenSize.height * 0.05,
+              splashRadius: 0.1,
+              icon: const Icon(Icons.arrow_back_ios),
+              onPressed: () {
+                _controller.previousPage();
+              },
+            ),
+          ),
+          Positioned(
+            bottom: screenSize.height * 0.12,
+            right: screenSize.width * 0.01,
+            child: IconButton(
+              iconSize: screenSize.height * 0.05,
+              splashRadius: 0.1,
+              icon: const Icon(Icons.arrow_forward_ios),
+              onPressed: () {
+                _controller.nextPage();
+              },
+            ),
+          ),
+        ]),
+      ],
+    );
+  }
+
+  Widget landscapeMode(Size screenSize) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Stack(children: <Widget>[
+          CarouselSlider(
+            items: imageSliders,
+            options: CarouselOptions(
+                enlargeCenterPage: true, height: screenSize.height * 0.5),
+            carouselController: _controller,
+          ),
+          Positioned(
+            bottom: screenSize.height * 0.15,
+            left: screenSize.width * 0.1,
+            child: IconButton(
+              iconSize: screenSize.height * 0.2,
+              splashRadius: 0.1,
+              icon: const Icon(Icons.arrow_back_ios),
+              onPressed: () {
+                _controller.previousPage();
+              },
+            ),
+          ),
+          Positioned(
+            bottom: screenSize.height * 0.15,
+            right: screenSize.width * 0.1,
+            child: IconButton(
+              iconSize: screenSize.height * 0.2,
+              splashRadius: 0.1,
+              icon: const Icon(Icons.arrow_forward_ios),
+              onPressed: () {
+                _controller.nextPage();
+              },
+            ),
+          ),
+        ]),
+      ],
     );
   }
 
