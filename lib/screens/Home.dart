@@ -252,7 +252,7 @@ class _HomeState extends State<Home> {
           'connect',
           (_) => setState(() {
                 hasConnected = true;
-                print('Connect to socket with id: ${socket.id}');
+                print('Connected to socket with id: ${socket.id}');
               }));
       setState(() {
         hasConnected = true;

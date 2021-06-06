@@ -21,18 +21,21 @@ class _ControllerState extends State<Controller> {
 
   @override
   Widget build(BuildContext context) {
+    Size screenSize = MediaQuery.of(context).size;
+
     final arguments = ModalRoute.of(context)?.settings.arguments as Map;
     final String currentGame = arguments['currentGame'];
 
     return SafeArea(
       child: Scaffold(
         body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 IconButton(
+                    iconSize: screenSize.height * 0.15,
                     icon: Icon(Icons.arrow_upward),
                     onPressed: () {
                       socket.emit("update-player", "up");
@@ -43,11 +46,13 @@ class _ControllerState extends State<Controller> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 IconButton(
+                    iconSize: screenSize.height * 0.15,
                     icon: Icon(Icons.arrow_back),
                     onPressed: () {
                       socket.emit("update-player", "left");
                     }),
                 IconButton(
+                    iconSize: screenSize.height * 0.15,
                     icon: Icon(Icons.arrow_forward),
                     onPressed: () {
                       socket.emit("update-player", "right");
@@ -58,6 +63,7 @@ class _ControllerState extends State<Controller> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 IconButton(
+                    iconSize: screenSize.height * 0.15,
                     icon: Icon(Icons.arrow_downward),
                     onPressed: () {
                       socket.emit("update-player", "down");
@@ -65,13 +71,15 @@ class _ControllerState extends State<Controller> {
               ],
             ),
             TextButton(
-                onPressed: hasConnected
-                    ? () {
-                        socket.emit("close-game", currentGame);
-                        Navigator.pop(context);
-                      }
-                    : null,
-                child: Text("Close Game"))
+              onPressed: hasConnected
+                  ? () {
+                      socket.emit("close-game", currentGame);
+                      Navigator.pop(context);
+                    }
+                  : null,
+              child: Text("Close Game",
+                  style: TextStyle(fontSize: screenSize.height * 0.04)),
+            ),
           ],
         ),
       ),
