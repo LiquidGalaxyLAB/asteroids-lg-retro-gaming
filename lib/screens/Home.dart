@@ -5,19 +5,21 @@ import 'package:carousel_slider/carousel_controller.dart';
 import 'package:carousel_slider/carousel_options.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
-final List<String> imgList = [
-  'assets/pacman.png',
-  'assets/pong.png',
-  'assets/snake.png'
+final List<Map<String, dynamic>> imgList = [
+  {'image': 'assets/pacman.png', 'gameName': 'pacman'},
+  {'image': 'assets/pong.png', 'gameName': 'pong'},
+  {'image': 'assets/snake.png', 'gameName': 'snake'}
 ];
 
 final List<Widget> imageSliders = imgList
     .map((item) => Container(
           child: Center(
-            child: Image.asset(item, fit: BoxFit.contain),
+            child: Image.asset(item['image'], fit: BoxFit.contain),
           ),
         ))
     .toList();
+
+int currentPage = 0;
 
 class Home extends StatefulWidget {
   @override
@@ -75,6 +77,11 @@ class _HomeState extends State<Home> {
             options: CarouselOptions(
               enlargeCenterPage: true,
               height: screenSize.height * 0.3,
+              onPageChanged: (index, reason) {
+                setState(() {
+                  currentPage = index;
+                });
+              },
             ),
             carouselController: _controller,
           ),
@@ -163,7 +170,14 @@ class _HomeState extends State<Home> {
           CarouselSlider(
             items: imageSliders,
             options: CarouselOptions(
-                enlargeCenterPage: true, height: screenSize.height * 0.5),
+              enlargeCenterPage: true,
+              height: screenSize.height * 0.5,
+              onPageChanged: (index, reason) {
+                setState(() {
+                  currentPage = index;
+                });
+              },
+            ),
             carouselController: _controller,
           ),
           Positioned(
@@ -254,16 +268,14 @@ class _HomeState extends State<Home> {
                 hasConnected = true;
                 print('Connected to socket with id: ${socket.id}');
               }));
-      setState(() {
-        hasConnected = true;
-      });
     } catch (e) {
       print(e.toString());
     }
   }
 
   void openGame(BuildContext context) {
-    socket.emit('open-game', 'gameName');
+    socket.emit('open-game', imgList[currentPage]['gameName']);
+    print('open: ' + imgList[currentPage]['gameName']);
     Navigator.pushNamed(
       context,
       '/controller',
