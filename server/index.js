@@ -1,4 +1,5 @@
 //server config
+const { exec } = require('child_process');
 var express = require('express');
 var app = express();
 var http = require('http').createServer(app);
@@ -6,6 +7,7 @@ var io = require('socket.io')(http);
 var players = {};
 var currentGame = ''
 var id;
+var games = require('./games.json')
 
 app.use(express.static(__dirname + '/public'))
 
@@ -32,9 +34,11 @@ io.on("connect", (socket) => {
     })
 
     //open game based on the name given
-    socket.on("open-game", function (game) {
-        currentGame = game
-        console.log("Open game:", game);
+    socket.on("open-game", function (gameName) {
+        currentGame = gameName
+        console.log("Opening game:", gameName);
+        
+        exec(`bash ${games[gameName].openPath}`)
     })
 
     socket.on("close-game", function () {

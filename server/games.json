@@ -1,0 +1,14 @@
+{
+    "pacman": {
+        "port": 8114,
+        "openScrit": "/galaxy-pacman/scripts/open-game.sh"
+    },
+    "snake": {
+        "port": 8115,
+        "openScrit": "/galaxy-snake/scripts/open-game.sh"
+    },
+    "pong": {
+        "port": 8116,
+        "openScrit": "/galaxy-pong/scripts/open-game.sh"
+    }
+}
