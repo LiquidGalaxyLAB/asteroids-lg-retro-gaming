@@ -37,12 +37,15 @@ io.on("connect", (socket) => {
     socket.on("open-game", function (gameName) {
         currentGame = gameName
         console.log("Opening game:", gameName);
+        console.log(`execute: bash ${games[gameName].openScript}`)
         
-        exec(`bash ${games[gameName].openPath}`)
+        exec(`bash ${games[gameName].openScript}`)
     })
 
     socket.on("close-game", function () {
-        console.log(`Close ${currentGame}.`)
+        console.log("Closing game: ", currentGame)
+        console.log(`execute: bash ${games[currentGame].closeScript}`)
+        exec(`bash ${games[currentGame].closeScript}`)
     })
 
     //remove from players object when they disconnect
