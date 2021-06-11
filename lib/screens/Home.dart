@@ -274,12 +274,21 @@ class _HomeState extends State<Home> {
   }
 
   void openGame(BuildContext context) {
-    socket.emit('open-game', imgList[currentPage]['gameName']);
-    print('open: ' + imgList[currentPage]['gameName']);
-    Navigator.pushNamed(
-      context,
-      '/controller',
-      arguments: {'currentGame': 'gameName'},
-    );
+    final String game = imgList[currentPage]['gameName'];
+    socket.emit('open-game', game);
+    print('open: ' + game);
+    if (game == 'pacman' || game == 'pong') {
+      Navigator.pushNamed(
+        context,
+        '/controller',
+        arguments: {'currentGame': game},
+      );
+    } else {
+      Navigator.pushNamed(
+        context,
+        '/webcontroller',
+        arguments: {'currentGame': game},
+      );
+    }
   }
 }
