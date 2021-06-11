@@ -56,7 +56,7 @@ io.on("connect", (socket) => {
     })
 })
 
-const port = 7090;
+const port = 3123;
 http.listen(port, () => {
     console.log(`Listening on port ${port}`);
 })
