@@ -1,17 +1,17 @@
 {
     "pacman": {
         "port": 8114,
-        "openScript": "/galaxy-pacman/scripts/open-game.sh",
-        "closeScript": "/galaxy-snake/scripts/close-game.sh"
+        "openScript": "galaxy-pacman/Bash/open-pacman.sh",
+        "closeScript": "galaxy-snake/Bash/kill-pacman.sh"
     },
     "snake": {
         "port": 8115,
-        "openScript": "/galaxy-snake/scripts/open-game.sh",
-        "closeScript": "/galaxy-snake/scripts/close-game.sh"
+        "openScript": "galaxy-snake/Bash/open-snake.sh",
+        "closeScript": "galaxy-snake/Bash/killl-snake.sh"
     },
     "pong": {
         "port": 8116,
-        "openScript": "/galaxy-pong/scripts/open-game.sh",
-        "closeScript": "/galaxy-pong/scripts/close-game.sh"
+        "openScript": "galaxy-pong/Bash/open-pong.sh",
+        "closeScript": "galaxy-pong/Bash/kill-pong.sh"
     }
 }
