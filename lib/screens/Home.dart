@@ -5,12 +5,14 @@ import 'package:carousel_slider/carousel_controller.dart';
 import 'package:carousel_slider/carousel_options.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
+// List of images with their respective gameName (must be the same name as in games.json)
 final List<Map<String, dynamic>> imgList = [
   {'image': 'assets/pacman.png', 'gameName': 'pacman'},
   {'image': 'assets/pong.png', 'gameName': 'pong'},
   {'image': 'assets/snake.png', 'gameName': 'snake'}
 ];
 
+// Create list of widgets for carrousel display
 final List<Widget> imageSliders = imgList
     .map((item) => Container(
           child: Center(
@@ -19,6 +21,7 @@ final List<Widget> imageSliders = imgList
         ))
     .toList();
 
+// Current page index -> Used for getting correct gameName from imgList variable
 int currentPage = 0;
 
 class Home extends StatefulWidget {
@@ -27,15 +30,19 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  // Socket variable used for emiting and listening for events -> is set in connectToServer method
   late Socket socket;
+   // Server ip -> is set in connectToServer method from .env file
   late String? ip;
+  // Server port -> is set in connectToServer method from .env file
   late String? port;
-  bool hasConnected = false;
+  // Carrousel controller -> used for changing pages in the image carrousel
   final CarouselController _controller = CarouselController();
 
   @override
   void initState() {
     super.initState();
+    // connect to server 
     connectToServer();
   }
 
@@ -57,6 +64,9 @@ class _HomeState extends State<Home> {
     );
   }
 
+  // Layout for portrait mode
+  // "screenSize" is used to calculate widgets sizes based on screen size
+  // "context" is used for pushing Navigator
   Widget portraiMode(Size screenSize, BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -155,6 +165,9 @@ class _HomeState extends State<Home> {
     );
   }
 
+  // Layout for landscape mode
+  // "screenSize" is used to calculate widgets sizes based on screen size
+  // "context" is used for pushing Navigator
   Widget landscapeMode(Size screenSize, BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -265,7 +278,6 @@ class _HomeState extends State<Home> {
       socket.on(
           'connect',
           (_) => setState(() {
-                hasConnected = true;
                 print('Connected to socket with id: ${socket.id}');
               }));
     } catch (e) {
@@ -273,10 +285,17 @@ class _HomeState extends State<Home> {
     }
   }
 
+  // Open game based on current page index
+  // "context" is used for pushing Navigator
   void openGame(BuildContext context) {
+    // Get game name based on current page
     final String game = imgList[currentPage]['gameName'];
+
+    // Emit for socket to open game
     socket.emit('open-game', game);
     print('open: ' + game);
+
+    // Pacman and pong dont have web controller yet so open default controller
     if (game == 'pacman' || game == 'pong') {
       Navigator.pushNamed(
         context,
@@ -284,6 +303,7 @@ class _HomeState extends State<Home> {
         arguments: {'currentGame': game},
       );
     } else {
+      // Snake has web controller
       Navigator.pushNamed(
         context,
         '/webcontroller',
