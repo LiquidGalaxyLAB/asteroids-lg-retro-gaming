@@ -296,7 +296,7 @@ class _HomeState extends State<Home> {
     print('open: ' + game);
 
     // Pacman and pong dont have web controller yet so open default controller
-    if (game == 'pacman' || game == 'pong') {
+    if (game == 'pong') {
       Navigator.pushNamed(
         context,
         '/controller',

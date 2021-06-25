@@ -10,9 +10,13 @@ class WebController extends StatefulWidget {
 }
 
 class _WebControllerState extends State<WebController> {
-  bool hasLoaded = false;
-  late String? snakePort;
-  late String? pongPort;
+  // Is set to true once everything is loaded (set in loadEnv method)
+  bool hasLoaded = false; 
+
+  // Will contain all the ports e.g. ports['pacman'] is pacman game port (set in loadEnv method)
+  late Map<String, String?> ports = {};
+
+  // Will contain server Ip (set in loadEnv method)
   late String? serverIp;
 
   @override
@@ -40,7 +44,7 @@ class _WebControllerState extends State<WebController> {
         body: hasLoaded
             ? WebView(
                 initialUrl:
-                    "${currentGame == 'pong' ? 'https' : 'http'}://$serverIp:${currentGame == 'pong' ? pongPort : snakePort}/controller",
+                    "${currentGame == 'pong' ? 'https' : 'http'}://$serverIp:${ports[currentGame]}/controller",
                 javascriptMode: JavascriptMode.unrestricted,
                 onWebResourceError: (_) {
                   Navigator.of(context).pushNamed('errorPage');
@@ -60,8 +64,9 @@ class _WebControllerState extends State<WebController> {
 
     setState(() {
       serverIp = dotenv.env['SERVER_IP'];
-      snakePort = dotenv.env['SNAKE_PORT'];
-      pongPort = dotenv.env['PONG_PORT'];
+      ports['pacman'] = dotenv.env['PACMAN_PORT'];
+      ports['pong'] = dotenv.env['PONG_PORT'];
+      ports['snake'] = dotenv.env['SNAKE_PORT'];
       hasLoaded = true;
     });
   }
