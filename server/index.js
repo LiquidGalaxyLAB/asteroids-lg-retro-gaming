@@ -13,50 +13,36 @@ const fileName = "index.html"
 // socket inicialization
 const io = require('socket.io')(http);
 
-// players will store all connected players
-const players = {};
 // games is the variable containing all games in games.json with their names and executable scripts
 const games = require('./games.json')
 
 // currentGame is responsible for storing the last game that was opened
-var currentGame = ''
-var id;
-
+let currentGame = ''
 
 app.use(express.static(__dirname + filePath))
 
-app.get('/:id', (req, res) => {
-    // store screen id
-    id = req.params.id
-
+app.get('/', (req, res) => {
     res.sendFile(__dirname + `${filePath}/${fileName}`);
 })
 
-//sockets
+// sockets functions and event listeners
 io.on("connect", (socket) => {
     console.log(`User connected with id: ${socket.id}!`);
-
-    // add player to players object
-    players[socket.id] = {
-        pos: {
-            x: 0,
-            y: 0
-        },
-    }
 
     /**
      * Update players position
      * @param {number} dir direction that the player is going (up, down, left right)
      */
-    socket.on("update-player", function (dir) {
+    function updatePlayer(dir) {
         console.log(`Update player[${socket.id}]:`, dir);
-    })
+    };
+    socket.on("update-player", updatePlayer)
 
     /**
      * Open the game based on gameName
      * @param {String} gameName game name to execute open script (must be the same as the one in games.json -> eg. "pacman", "pong")
      */
-    socket.on("open-game", function (gameName) {
+    function openGame(gameName) {
         // save the  current game name
         currentGame = gameName
         console.log("Opening game:", gameName);
@@ -64,25 +50,26 @@ io.on("connect", (socket) => {
         
         // execute the open game script
         exec(`bash ${games[gameName].openScript}`)
-    })
+    }
+    socket.on("open-game", openGame)
 
     /**
-     * Close the game based on gameName
+     * Close the game based on currentGame variable
      */
-    socket.on("close-game", function () {
+    function closeGame() {
         console.log("Closing game: ", currentGame)
         console.log(`execute: bash ${games[currentGame].closeScript}`)
         exec(`bash ${games[currentGame].closeScript}`)
-    })
+    }
+    socket.on("close-game", closeGame)
 
     /**
-     * Remove player from player object on disconnect
+     *  Disconnect method -> log when user disconnected
      */
-    socket.on("disconnect", function () {
+    function onDisconnect() {
         console.log(`User with id ${socket.id} disconnected!`);
-
-        delete players[socket.id];
-    })
+    }
+    socket.on("disconnect", onDisconnect)
 })
 
 // start server in defined port
