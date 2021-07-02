@@ -32,7 +32,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   // Socket variable used for emiting and listening for events -> is set in connectToServer method
   late Socket socket;
-   // Server ip -> is set in connectToServer method from .env file
+  // Server ip -> is set in connectToServer method from .env file
   late String? ip;
   // Server port -> is set in connectToServer method from .env file
   late String? port;
@@ -42,7 +42,7 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
-    // connect to server 
+    // connect to server
     connectToServer();
   }
 
@@ -52,6 +52,7 @@ class _HomeState extends State<Home> {
 
     return SafeArea(
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         backgroundColor: Colors.blueGrey.shade100,
         body: OrientationBuilder(
           builder: (BuildContext context, Orientation orientation) {
@@ -68,98 +69,117 @@ class _HomeState extends State<Home> {
   // "screenSize" is used to calculate widgets sizes based on screen size
   // "context" is used for pushing Navigator
   Widget portraiMode(Size screenSize, BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
+    return Stack(
       children: [
-        Padding(
-          padding: EdgeInsets.only(bottom: screenSize.height * 0.1),
-          child: Text(
-            "Liquid Galaxy Retro Gaming",
-            style: TextStyle(
-              fontFamily: 'RetroFont',
-              fontSize: screenSize.height * 0.035,
+        Positioned(
+          top: screenSize.height * 0.01,
+          right: screenSize.height * 0.01,
+          child: GestureDetector(
+            onTap: () {
+              Navigator.pushNamed(context, '/settings');
+            },
+            child: Icon(
+              Icons.settings,
+              size: screenSize.height * 0.05,
             ),
           ),
         ),
-        Stack(children: <Widget>[
-          CarouselSlider(
-            items: imageSliders,
-            options: CarouselOptions(
-              enlargeCenterPage: true,
-              height: screenSize.height * 0.3,
-              onPageChanged: (index, reason) {
-                setState(() {
-                  currentPage = index;
-                });
-              },
-            ),
-            carouselController: _controller,
-          ),
-          Positioned(
-            bottom: screenSize.height * 0.12,
-            left: screenSize.width * 0.01,
-            child: IconButton(
-              iconSize: screenSize.height * 0.05,
-              splashRadius: 0.1,
-              icon: const Icon(Icons.arrow_back_ios),
-              onPressed: () {
-                _controller.previousPage();
-              },
-            ),
-          ),
-          Positioned(
-            bottom: screenSize.height * 0.12,
-            right: screenSize.width * 0.01,
-            child: IconButton(
-              iconSize: screenSize.height * 0.05,
-              splashRadius: 0.1,
-              icon: const Icon(Icons.arrow_forward_ios),
-              onPressed: () {
-                _controller.nextPage();
-              },
-            ),
-          ),
-        ]),
-        Padding(
-          padding: EdgeInsets.only(top: screenSize.height * 0.1),
-          child: Container(
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(screenSize.height * 0.1),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.5),
-                  spreadRadius: 3,
-                  blurRadius: 4,
-                  offset: Offset(3, 3), // changes position of shadow
-                ),
-              ],
-            ),
-            child: TextButton(
-              onPressed: () => openGame(context),
-              child: Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Text(
-                  "OPEN GAME",
-                  style: TextStyle(
-                    fontFamily: 'RetroFont',
-                    fontSize: screenSize.height * 0.025,
-                  ),
-                ),
-              ),
-              style: ButtonStyle(
-                foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
-                backgroundColor: MaterialStateProperty.all<Color>(Colors.black),
-                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                  RoundedRectangleBorder(
-                    borderRadius:
-                        BorderRadius.circular(screenSize.height * 0.1),
-                    side: BorderSide(color: Colors.black),
-                  ),
+        Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Padding(
+              padding: EdgeInsets.only(bottom: screenSize.height * 0.1),
+              child: Text(
+                "Liquid Galaxy Retro Gaming",
+                style: TextStyle(
+                  fontFamily: 'RetroFont',
+                  fontSize: screenSize.height * 0.035,
                 ),
               ),
             ),
-          ),
+            Stack(children: <Widget>[
+              CarouselSlider(
+                items: imageSliders,
+                options: CarouselOptions(
+                  enlargeCenterPage: true,
+                  height: screenSize.height * 0.3,
+                  onPageChanged: (index, reason) {
+                    setState(() {
+                      currentPage = index;
+                    });
+                  },
+                ),
+                carouselController: _controller,
+              ),
+              Positioned(
+                bottom: screenSize.height * 0.12,
+                left: screenSize.width * 0.01,
+                child: IconButton(
+                  iconSize: screenSize.height * 0.05,
+                  splashRadius: 0.1,
+                  icon: const Icon(Icons.arrow_back_ios),
+                  onPressed: () {
+                    _controller.previousPage();
+                  },
+                ),
+              ),
+              Positioned(
+                bottom: screenSize.height * 0.12,
+                right: screenSize.width * 0.01,
+                child: IconButton(
+                  iconSize: screenSize.height * 0.05,
+                  splashRadius: 0.1,
+                  icon: const Icon(Icons.arrow_forward_ios),
+                  onPressed: () {
+                    _controller.nextPage();
+                  },
+                ),
+              ),
+            ]),
+            Padding(
+              padding: EdgeInsets.only(top: screenSize.height * 0.1),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(screenSize.height * 0.1),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.5),
+                      spreadRadius: 3,
+                      blurRadius: 4,
+                      offset: Offset(3, 3), // changes position of shadow
+                    ),
+                  ],
+                ),
+                child: TextButton(
+                  onPressed: () => openGame(context),
+                  child: Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Text(
+                      "OPEN GAME",
+                      style: TextStyle(
+                        fontFamily: 'RetroFont',
+                        fontSize: screenSize.height * 0.025,
+                      ),
+                    ),
+                  ),
+                  style: ButtonStyle(
+                    foregroundColor:
+                        MaterialStateProperty.all<Color>(Colors.white),
+                    backgroundColor:
+                        MaterialStateProperty.all<Color>(Colors.black),
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                        borderRadius:
+                            BorderRadius.circular(screenSize.height * 0.1),
+                        side: BorderSide(color: Colors.black),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
         ),
       ],
     );
@@ -169,91 +189,111 @@ class _HomeState extends State<Home> {
   // "screenSize" is used to calculate widgets sizes based on screen size
   // "context" is used for pushing Navigator
   Widget landscapeMode(Size screenSize, BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
+    return Stack(
       children: [
-        Text(
-          "Liquid Galaxy Retro Gaming",
-          style: TextStyle(
-            fontFamily: 'RetroFont',
-            fontSize: screenSize.height * 0.075,
+        Positioned(
+          top: screenSize.height * 0.01,
+          right: screenSize.height * 0.01,
+          child: GestureDetector(
+            onTap: () {
+              Navigator.pushNamed(context, '/settings');
+            },
+            child: Icon(
+              Icons.settings,
+              size: screenSize.height * 0.08,
+            ),
           ),
         ),
-        Stack(children: <Widget>[
-          CarouselSlider(
-            items: imageSliders,
-            options: CarouselOptions(
-              enlargeCenterPage: true,
-              height: screenSize.height * 0.5,
-              onPageChanged: (index, reason) {
-                setState(() {
-                  currentPage = index;
-                });
-              },
-            ),
-            carouselController: _controller,
-          ),
-          Positioned(
-            bottom: screenSize.height * 0.16,
-            left: screenSize.width * 0.1,
-            child: IconButton(
-              iconSize: screenSize.height * 0.15,
-              splashRadius: 0.1,
-              icon: const Icon(Icons.arrow_back_ios),
-              onPressed: () {
-                _controller.previousPage();
-              },
-            ),
-          ),
-          Positioned(
-            bottom: screenSize.height * 0.16,
-            right: screenSize.width * 0.1,
-            child: IconButton(
-              iconSize: screenSize.height * 0.15,
-              splashRadius: 0.1,
-              icon: const Icon(Icons.arrow_forward_ios),
-              onPressed: () {
-                _controller.nextPage();
-              },
-            ),
-          ),
-        ]),
-        Container(
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(screenSize.height * 0.1),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.5),
-                spreadRadius: 3,
-                blurRadius: 4,
-                offset: Offset(3, 3), // changes position of shadow
+        Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Text(
+              "Liquid Galaxy Retro Gaming",
+              style: TextStyle(
+                fontFamily: 'RetroFont',
+                fontSize: screenSize.height * 0.075,
               ),
-            ],
-          ),
-          child: TextButton(
-            onPressed: () => openGame(context),
-            child: Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Text(
-                "OPEN GAME",
-                style: TextStyle(
-                  fontFamily: 'RetroFont',
-                  fontSize: screenSize.height * 0.035,
+            ),
+            Stack(children: <Widget>[
+              CarouselSlider(
+                items: imageSliders,
+                options: CarouselOptions(
+                  enlargeCenterPage: true,
+                  height: screenSize.height * 0.5,
+                  onPageChanged: (index, reason) {
+                    setState(() {
+                      currentPage = index;
+                    });
+                  },
+                ),
+                carouselController: _controller,
+              ),
+              Positioned(
+                bottom: screenSize.height * 0.16,
+                left: screenSize.width * 0.1,
+                child: IconButton(
+                  iconSize: screenSize.height * 0.15,
+                  splashRadius: 0.1,
+                  icon: const Icon(Icons.arrow_back_ios),
+                  onPressed: () {
+                    _controller.previousPage();
+                  },
+                ),
+              ),
+              Positioned(
+                bottom: screenSize.height * 0.16,
+                right: screenSize.width * 0.1,
+                child: IconButton(
+                  iconSize: screenSize.height * 0.15,
+                  splashRadius: 0.1,
+                  icon: const Icon(Icons.arrow_forward_ios),
+                  onPressed: () {
+                    _controller.nextPage();
+                  },
+                ),
+              ),
+            ]),
+            Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(screenSize.height * 0.1),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.5),
+                    spreadRadius: 3,
+                    blurRadius: 4,
+                    offset: Offset(3, 3), // changes position of shadow
+                  ),
+                ],
+              ),
+              child: TextButton(
+                onPressed: () => openGame(context),
+                child: Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Text(
+                    "OPEN GAME",
+                    style: TextStyle(
+                      fontFamily: 'RetroFont',
+                      fontSize: screenSize.height * 0.035,
+                    ),
+                  ),
+                ),
+                style: ButtonStyle(
+                  foregroundColor:
+                      MaterialStateProperty.all<Color>(Colors.white),
+                  backgroundColor:
+                      MaterialStateProperty.all<Color>(Colors.black),
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+                      borderRadius:
+                          BorderRadius.circular(screenSize.height * 0.1),
+                      side: BorderSide(color: Colors.black),
+                    ),
+                  ),
                 ),
               ),
             ),
-            style: ButtonStyle(
-              foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
-              backgroundColor: MaterialStateProperty.all<Color>(Colors.black),
-              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(screenSize.height * 0.1),
-                  side: BorderSide(color: Colors.black),
-                ),
-              ),
-            ),
-          ),
+          ],
         ),
       ],
     );
