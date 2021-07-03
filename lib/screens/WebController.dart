@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:get_storage/get_storage.dart';
+
+final store = GetStorage();
 
 class WebController extends StatefulWidget {
   const WebController({Key? key}) : super(key: key);
@@ -14,15 +16,18 @@ class _WebControllerState extends State<WebController> {
   bool hasLoaded = false; 
 
   // Will contain all the ports e.g. ports['pacman'] is pacman game port (set in loadEnv method)
-  late Map<String, String?> ports = {};
+  final Map<String, String?> ports = {
+    'pacman': store.read('pacmanPort'),
+    'snake': store.read('snakePort'),
+    'pong': store.read('pongPort')
+  };
 
   // Will contain server Ip (set in loadEnv method)
-  late String? serverIp;
+  final String? serverIp = store.read('serverIp');
 
   @override
   void initState() {
     super.initState();
-    loadEnv();
   }
 
   @override
@@ -57,17 +62,5 @@ class _WebControllerState extends State<WebController> {
               ),
       ),
     );
-  }
-
-  void loadEnv() async {
-    await dotenv.load(fileName: ".env");
-
-    setState(() {
-      serverIp = dotenv.env['SERVER_IP'];
-      ports['pacman'] = dotenv.env['PACMAN_PORT'];
-      ports['pong'] = dotenv.env['PONG_PORT'];
-      ports['snake'] = dotenv.env['SNAKE_PORT'];
-      hasLoaded = true;
-    });
   }
 }

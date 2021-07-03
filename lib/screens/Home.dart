@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:socket_io_client/socket_io_client.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:carousel_slider/carousel_controller.dart';
 import 'package:carousel_slider/carousel_options.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:get_storage/get_storage.dart';
+
+final store = GetStorage();
 
 // List of images with their respective gameName (must be the same name as in games.json)
 final List<Map<String, dynamic>> imgList = [
@@ -32,10 +34,8 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   // Socket variable used for emiting and listening for events -> is set in connectToServer method
   late Socket socket;
-  // Server ip -> is set in connectToServer method from .env file
-  late String? ip;
-  // Server port -> is set in connectToServer method from .env file
-  late String? port;
+  final String? ip = store.read('serverIp');
+  final String? port = store.read('serverPort');
   // Carrousel controller -> used for changing pages in the image carrousel
   final CarouselController _controller = CarouselController();
 
@@ -300,13 +300,7 @@ class _HomeState extends State<Home> {
   }
 
   void connectToServer() async {
-    await dotenv.load(fileName: ".env");
     try {
-      //get variables from .env file
-      ip = dotenv.env['SERVER_IP'];
-      port = dotenv.env['SERVER_PORT'];
-      print('ip: $ip port: $port');
-
       // Configure socket to connect with server ip
       socket = io('http://$ip:$port', <String, dynamic>{
         'transports': ['websocket'],

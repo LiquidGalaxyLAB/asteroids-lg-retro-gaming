@@ -47,19 +47,34 @@ io.on("connect", (socket) => {
         currentGame = gameName
         console.log("Opening game:", gameName);
         console.log(`execute: bash ${games[gameName].openScript}`)
-        
+
         // execute the open game script
-        exec(`bash ${games[gameName].openScript}`)
+        exec(`bash ${games[gameName].openScript}`, (err) => {
+            if (err) {
+                console.error(`Error executing ${games[gameName].openScript}`);
+                console.error(err);
+            }
+        })
     }
     socket.on("open-game", openGame)
 
     /**
-     * Close the game based on currentGame variable
+     * Close the game based on currentGame variable (set when game is opened)
      */
     function closeGame() {
-        console.log("Closing game: ", currentGame)
-        console.log(`execute: bash ${games[currentGame].closeScript}`)
-        exec(`bash ${games[currentGame].closeScript}`)
+        try {
+            console.log("Closing game: ", currentGame)
+            console.log(`execute: bash ${games[currentGame].closeScript}`)
+            exec(`bash ${games[currentGame].closeScript}`, (err) => {
+                if (err) {
+                    console.error(`Error executing ${games[currentGame].closeScript}`);
+                    console.error(err);
+                }
+            })
+        } catch(err) {
+            console.log('Error closing game')
+            console.error(err);
+        }
     }
     socket.on("close-game", closeGame)
 

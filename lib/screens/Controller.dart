@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:socket_io_client/socket_io_client.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:get_storage/get_storage.dart';
+
+final store = GetStorage();
 
 class Controller extends StatefulWidget {
   @override
@@ -9,8 +11,8 @@ class Controller extends StatefulWidget {
 
 class _ControllerState extends State<Controller> {
   late Socket socket;
-  late String? ip;
-  late String? port;
+  final String? ip = store.read('serverIp');
+  final String? port = store.read('serverPort');
   bool hasConnected = false;
 
   @override
@@ -87,13 +89,7 @@ class _ControllerState extends State<Controller> {
   }
 
   void connectToServer() async {
-    await dotenv.load(fileName: ".env");
     try {
-      //get variables from .env file
-      ip = dotenv.env['SERVER_IP'];
-      port = dotenv.env['SERVER_PORT'];
-      print('ip: $ip port: $port');
-
       // Configure socket to connect with server ip
       socket = io('http://$ip:$port', <String, dynamic>{
         'transports': ['websocket'],
