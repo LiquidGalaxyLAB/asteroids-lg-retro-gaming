@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+import 'package:socket_io_client/socket_io_client.dart';
 import 'package:get_storage/get_storage.dart';
 
 final store = GetStorage();
@@ -13,7 +14,6 @@ class WebController extends StatefulWidget {
 
 class _WebControllerState extends State<WebController> {
   // Is set to true once everything is loaded (set in loadEnv method)
-  bool hasLoaded = false; 
 
   // Will contain all the ports e.g. ports['pacman'] is pacman game port (set in loadEnv method)
   final Map<String, String?> ports = {
@@ -24,10 +24,13 @@ class _WebControllerState extends State<WebController> {
 
   // Will contain server Ip (set in loadEnv method)
   final String? serverIp = store.read('serverIp');
+  final String? serverPort = store.read('serverPort');
+  late Socket socket;
 
   @override
   void initState() {
     super.initState();
+    connectToServer();
   }
 
   @override
@@ -39,28 +42,42 @@ class _WebControllerState extends State<WebController> {
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.black,
-          // leading: new IconButton(
-          //   icon: new Icon(Icons.arrow_back),
-          //   onPressed: () {
-          //     Navigator.pop(context);
-          //   },
-          // ),
+          leading: new IconButton(
+            icon: new Icon(Icons.arrow_back),
+            onPressed: () {
+              socket.emit('close-game');
+              Navigator.pop(context);
+            },
+          ),
         ),
-        body: hasLoaded
-            ? WebView(
-                initialUrl:
-                    "${currentGame == 'pong' ? 'https' : 'http'}://$serverIp:${ports[currentGame]}/controller",
-                javascriptMode: JavascriptMode.unrestricted,
-                onWebResourceError: (_) {
-                  Navigator.of(context).pushNamed('errorPage');
-                },
-              )
-            : Container(
-                child: Center(
-                  child: Text('Loading Controller'),
-                ),
-              ),
+        body: WebView(
+          initialUrl: "http://$serverIp:${ports[currentGame]}/controller",
+          javascriptMode: JavascriptMode.unrestricted,
+          onWebResourceError: (_) {
+            Navigator.of(context).pushNamed('errorPage');
+          },
+        ),
       ),
     );
+  }
+
+  void connectToServer() async {
+    try {
+      // Configure socket to connect with server ip
+      socket = io('http://$serverIp:$serverPort', <String, dynamic>{
+        'transports': ['websocket'],
+        'autoConnect': false,
+      });
+
+      socket.connect();
+
+      socket.on(
+          'connect',
+          (_) => setState(() {
+                print('Connect to socket with id: ${socket.id}');
+              }));
+    } catch (e) {
+      print(e.toString());
+    }
   }
 }

@@ -329,20 +329,10 @@ class _HomeState extends State<Home> {
     socket.emit('open-game', game);
     print('open: ' + game);
 
-    // Pacman and pong dont have web controller yet so open default controller
-    if (game == 'pong') {
-      Navigator.pushNamed(
-        context,
-        '/controller',
-        arguments: {'currentGame': game},
-      );
-    } else {
-      // Snake has web controller
-      Navigator.pushNamed(
-        context,
-        '/webcontroller',
-        arguments: {'currentGame': game},
-      );
-    }
+    Navigator.pushNamed(
+      context,
+      '/webcontroller',
+      arguments: {'currentGame': game},
+    );
   }
 }
