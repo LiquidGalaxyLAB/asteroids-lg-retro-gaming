@@ -126,26 +126,6 @@ class _SplashScreenState extends State<SplashScreen> {
             ],
           ),
         ),
-        // Center(
-        //   child: Wrap(
-        //     runSpacing: screenSize.height * 0.1,
-        //     spacing: screenSize.height * 0.05,
-        //     alignment: WrapAlignment.center,
-        //     crossAxisAlignment: WrapCrossAlignment.center,
-        //     children: [
-        //       for (int i = 0; i < images.length; i++)
-        //         Container(
-        //           child: Center(
-        //             child: Image.asset(
-        //               images[i],
-        //               fit: BoxFit.contain,
-        //             ),
-        //           ),
-        //           width: screenSize.width / 5,
-        //         ),
-        //     ],
-        //   ),
-        // ),
       ),
     );
   }
