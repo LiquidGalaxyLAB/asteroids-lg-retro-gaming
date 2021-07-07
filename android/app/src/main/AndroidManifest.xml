@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.lg_retro_gaming">
    <application
-        android:label="lg_retro_gaming"
+        android:label="LG Retro Gaming"
         android:icon="@mipmap/ic_launcher"
         android:usesCleartextTraffic="true">
         <activity
