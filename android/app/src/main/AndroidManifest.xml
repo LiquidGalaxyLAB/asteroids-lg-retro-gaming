@@ -1,5 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.lg_retro_gaming">
+   <uses-permission android:name="android.permission.INTERNET"/>
    <application
         android:label="LG Retro Gaming"
         android:icon="@mipmap/ic_launcher"
