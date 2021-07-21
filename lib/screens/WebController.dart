@@ -64,16 +64,16 @@ class _WebControllerState extends State<WebController> {
                               mainAxisSize: MainAxisSize.min,
                               children: [
                                 QrImage(
-                                  size: screenSize.height * 0.8,
+                                  size: screenSize.height * 0.5,
                                   data:
                                       "http://$serverIp:${ports[currentGame]}/controller",
                                 ),
-                                Text(
-                                  "http://$serverIp:${ports[currentGame]}/controller",
-                                  style: TextStyle(
-                                    fontSize: screenSize.height * 0.05,
-                                  ),
-                                )
+                                // Text(
+                                //   "http://$serverIp:${ports[currentGame]}/controller",
+                                //   style: TextStyle(
+                                //     fontSize: screenSize.height * 0.05,
+                                //   ),
+                                // )
                               ],
                             ),
                           ),
