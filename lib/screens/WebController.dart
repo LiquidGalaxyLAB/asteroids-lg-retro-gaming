@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:socket_io_client/socket_io_client.dart';
 import 'package:get_storage/get_storage.dart';
@@ -37,6 +38,7 @@ class _WebControllerState extends State<WebController> {
   Widget build(BuildContext context) {
     final arguments = ModalRoute.of(context)?.settings.arguments as Map;
     final String currentGame = arguments['currentGame'];
+    Size screenSize = MediaQuery.of(context).size;
 
     return SafeArea(
       child: Scaffold(
@@ -49,6 +51,37 @@ class _WebControllerState extends State<WebController> {
               Navigator.pop(context);
             },
           ),
+          actions: [
+            IconButton(
+                onPressed: () {
+                  showDialog(
+                      context: context,
+                      builder: (context) {
+                        return Center(
+                          child: Card(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                QrImage(
+                                  size: screenSize.height * 0.8,
+                                  data:
+                                      "http://$serverIp:${ports[currentGame]}/controller",
+                                ),
+                                Text(
+                                  "http://$serverIp:${ports[currentGame]}/controller",
+                                  style: TextStyle(
+                                    fontSize: screenSize.height * 0.05,
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                        );
+                      });
+                },
+                icon: Icon(Icons.qr_code_2))
+          ],
         ),
         body: WebView(
           initialUrl: "http://$serverIp:${ports[currentGame]}/controller",
