@@ -34,8 +34,8 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   // Socket variable used for emiting and listening for events -> is set in connectToServer method
   late Socket socket;
-  final String? ip = store.read('serverIp');
-  final String? port = store.read('serverPort');
+  String? ip = store.read('serverIp');
+  String? port = store.read('serverPort');
   // Carrousel controller -> used for changing pages in the image carrousel
   final CarouselController _controller = CarouselController();
 
@@ -75,9 +75,7 @@ class _HomeState extends State<Home> {
           top: screenSize.height * 0.01,
           right: screenSize.height * 0.01,
           child: GestureDetector(
-            onTap: () {
-              Navigator.pushNamed(context, '/settings');
-            },
+            onTap: () => pushToSettings(context),
             child: Icon(
               Icons.settings,
               size: screenSize.height * 0.05,
@@ -195,9 +193,7 @@ class _HomeState extends State<Home> {
           top: screenSize.height * 0.01,
           right: screenSize.height * 0.01,
           child: GestureDetector(
-            onTap: () {
-              Navigator.pushNamed(context, '/settings');
-            },
+            onTap: () => pushToSettings(context),
             child: Icon(
               Icons.settings,
               size: screenSize.height * 0.08,
@@ -334,5 +330,16 @@ class _HomeState extends State<Home> {
       '/webcontroller',
       arguments: {'currentGame': game},
     );
+  }
+
+  // Push to settings screen and reconnect to socket server when back to main screen
+  // "context" is used for pushing Navigator
+  void pushToSettings(BuildContext context) async {
+    await Navigator.pushNamed(context, '/settings');
+
+    socket.disconnect();
+    ip = store.read('serverIp');
+    port = store.read('serverPort');
+    connectToServer();
   }
 }
