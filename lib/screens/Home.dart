@@ -296,6 +296,14 @@ class _HomeState extends State<Home> {
   }
 
   void connectToServer() async {
+    // set default values for variables
+    store.write('serverIp', '192.168.0.123');
+    store.write('serverPort', '3123');
+    store.write('pacmanPort', '8128');
+    store.write('snakePort', '8114');
+    store.write('pongPort', '8112');
+    ip = store.read('serverIp');
+    port = store.read('serverPort');
     try {
       // Configure socket to connect with server ip
       socket = io('http://$ip:$port', <String, dynamic>{
@@ -337,7 +345,9 @@ class _HomeState extends State<Home> {
   void pushToSettings(BuildContext context) async {
     await Navigator.pushNamed(context, '/settings');
 
-    socket.disconnect();
+    if (ip != null && port != null) {
+      socket.disconnect();
+    }
     ip = store.read('serverIp');
     port = store.read('serverPort');
     connectToServer();
