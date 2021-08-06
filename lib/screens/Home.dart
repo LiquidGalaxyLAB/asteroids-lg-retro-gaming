@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:socket_io_client/socket_io_client.dart';
 import 'package:carousel_slider/carousel_controller.dart';
 import 'package:carousel_slider/carousel_options.dart';
@@ -53,7 +54,7 @@ class _HomeState extends State<Home> {
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: false,
-        backgroundColor: Colors.blueGrey.shade100,
+        backgroundColor: Color(0xff161616),
         body: OrientationBuilder(
           builder: (BuildContext context, Orientation orientation) {
             return orientation == Orientation.portrait
@@ -78,12 +79,13 @@ class _HomeState extends State<Home> {
             onTap: () => pushToSettings(context),
             child: Icon(
               Icons.settings,
+              color: const Color(0xFF00FF05),
               size: screenSize.height * 0.05,
             ),
           ),
         ),
         Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Padding(
               padding: EdgeInsets.only(bottom: screenSize.height * 0.1),
@@ -92,6 +94,7 @@ class _HomeState extends State<Home> {
                 style: TextStyle(
                   fontFamily: 'RetroFont',
                   fontSize: screenSize.height * 0.035,
+                  color: const Color(0xFF00FF05),
                 ),
               ),
             ),
@@ -113,6 +116,7 @@ class _HomeState extends State<Home> {
                 bottom: screenSize.height * 0.12,
                 left: screenSize.width * 0.01,
                 child: IconButton(
+                  color: const Color(0xFF00FF05),
                   iconSize: screenSize.height * 0.05,
                   splashRadius: 0.1,
                   icon: const Icon(Icons.arrow_back_ios),
@@ -125,6 +129,7 @@ class _HomeState extends State<Home> {
                 bottom: screenSize.height * 0.12,
                 right: screenSize.width * 0.01,
                 child: IconButton(
+                  color: const Color(0xFF00FF05),
                   iconSize: screenSize.height * 0.05,
                   splashRadius: 0.1,
                   icon: const Icon(Icons.arrow_forward_ios),
@@ -135,44 +140,14 @@ class _HomeState extends State<Home> {
               ),
             ]),
             Padding(
-              padding: EdgeInsets.only(top: screenSize.height * 0.1),
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(screenSize.height * 0.1),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.5),
-                      spreadRadius: 3,
-                      blurRadius: 4,
-                      offset: Offset(3, 3), // changes position of shadow
-                    ),
-                  ],
-                ),
-                child: TextButton(
-                  onPressed: () => openGame(context),
-                  child: Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Text(
-                      "OPEN GAME",
-                      style: TextStyle(
-                        fontFamily: 'RetroFont',
-                        fontSize: screenSize.height * 0.025,
-                      ),
-                    ),
-                  ),
-                  style: ButtonStyle(
-                    foregroundColor:
-                        MaterialStateProperty.all<Color>(Colors.white),
-                    backgroundColor:
-                        MaterialStateProperty.all<Color>(Colors.black),
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                      RoundedRectangleBorder(
-                        borderRadius:
-                            BorderRadius.circular(screenSize.height * 0.1),
-                        side: BorderSide(color: Colors.black),
-                      ),
-                    ),
+              padding: EdgeInsets.symmetric(vertical: screenSize.height * 0.05),
+              child: GestureDetector(
+                onTap: () => openGame(context),
+                child: Container(
+                  height: screenSize.height * 0.07,
+                  child: Image.asset(
+                    'assets/openBtn.png',
+                    fit: BoxFit.fill,
                   ),
                 ),
               ),
@@ -196,6 +171,7 @@ class _HomeState extends State<Home> {
             onTap: () => pushToSettings(context),
             child: Icon(
               Icons.settings,
+              color: const Color(0xFF00FF05),
               size: screenSize.height * 0.08,
             ),
           ),
@@ -208,6 +184,7 @@ class _HomeState extends State<Home> {
               style: TextStyle(
                 fontFamily: 'RetroFont',
                 fontSize: screenSize.height * 0.075,
+                color: const Color(0xFF00FF05),
               ),
             ),
             Stack(children: <Widget>[
@@ -228,6 +205,7 @@ class _HomeState extends State<Home> {
                 bottom: screenSize.height * 0.16,
                 left: screenSize.width * 0.1,
                 child: IconButton(
+                  color: const Color(0xFF00FF05),
                   iconSize: screenSize.height * 0.15,
                   splashRadius: 0.1,
                   icon: const Icon(Icons.arrow_back_ios),
@@ -240,6 +218,7 @@ class _HomeState extends State<Home> {
                 bottom: screenSize.height * 0.16,
                 right: screenSize.width * 0.1,
                 child: IconButton(
+                  color: const Color(0xFF00FF05),
                   iconSize: screenSize.height * 0.15,
                   splashRadius: 0.1,
                   icon: const Icon(Icons.arrow_forward_ios),
@@ -249,43 +228,13 @@ class _HomeState extends State<Home> {
                 ),
               ),
             ]),
-            Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(screenSize.height * 0.1),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.5),
-                    spreadRadius: 3,
-                    blurRadius: 4,
-                    offset: Offset(3, 3), // changes position of shadow
-                  ),
-                ],
-              ),
-              child: TextButton(
-                onPressed: () => openGame(context),
-                child: Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Text(
-                    "OPEN GAME",
-                    style: TextStyle(
-                      fontFamily: 'RetroFont',
-                      fontSize: screenSize.height * 0.035,
-                    ),
-                  ),
-                ),
-                style: ButtonStyle(
-                  foregroundColor:
-                      MaterialStateProperty.all<Color>(Colors.white),
-                  backgroundColor:
-                      MaterialStateProperty.all<Color>(Colors.black),
-                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(
-                      borderRadius:
-                          BorderRadius.circular(screenSize.height * 0.1),
-                      side: BorderSide(color: Colors.black),
-                    ),
-                  ),
+            GestureDetector(
+              onTap: () => openGame(context),
+              child: Container(
+                height: screenSize.height * 0.1,
+                child: Image.asset(
+                  'assets/openBtn.png',
+                  fit: BoxFit.fill,
                 ),
               ),
             ),
