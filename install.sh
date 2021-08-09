@@ -34,14 +34,20 @@ echo "[$time] Installing dependencies..." | tee -a ./logs/$filename
 npm install 2>> ./logs/$filename
 
 # Stop server if already started
-pm2 delete LGRG_PORT:3123 2> /dev/null
+sudo pm2 delete LGRG_PORT:3123 2> /dev/null
 
 # Start server
 time=$(date +%H:%M:%S)
 echo "[$time] Starting pm2..." | tee -a ./logs/$filename
-pm2 start ./server/index.js --name LGRG_PORT:3123 2>> ./logs/$filename
+sudo pm2 start ./server/index.js --name LGRG_PORT:3123 2>> ./logs/$filename
 
-pm2 save 2>> ./logs/$filename
+sudo pm2 save 2>> ./logs/$filename
+
+# Add automatic pm2 resurrect script
+time=$(date +%H:%M:%S)
+echo "[$time] Updating resurrect script..." | tee -a ./logs/$filename
+RESURRECT=pm2 startup | grep 'sudo'
+eval $RESURRECT 2>> ./logs/$filename
 
 time=$(date +%H:%M:%S)
 echo "[$time] Installation complete. Reboot machine to finish installation" | tee -a ./logs/$filename
