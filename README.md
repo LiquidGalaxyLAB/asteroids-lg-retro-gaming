@@ -15,7 +15,7 @@ After cloning the repository in the master machine navigate to the cloned folder
 ```bash
 cd lg-retro-gaming
 
-sudo bash install.sh
+bash install.sh
 ```
 
 Once the installation is finished, make sure to reboot the machine.
