@@ -1,17 +1,32 @@
+[![License](https://img.shields.io/github/license/LiquidGalaxyLAB/lg-retro-gaming.svg)](https://opensource.org/licenses/Apache-2.0) [![github-languages-image](https://img.shields.io/github/languages/top/LiquidGalaxyLAB/lg-retro-gaming.svg?color=red)]() [![github-language-count-image](https://img.shields.io/github/languages/count/LiquidGalaxyLAB/lg-retro-gaming.svg)]() [![Issues](https://img.shields.io/github/issues/LiquidGalaxyLAB/lg-retro-gaming.svg)](https://github.com/LiquidGalaxyLAB/lg-retro-gaming/issues) [![forks](https://img.shields.io/github/forks/LiquidGalaxyLAB/lg-retro-gaming.svg)]() [![github-repo-size-image](https://img.shields.io/github/repo-size/LiquidGalaxyLAB/lg-retro-gaming.svg?color=yellow)]()
+
 # Liquid Galaxy Retro Gaming
 
 The idea of playing games on the Liquid Galaxy has already been explored by some developers, there are currently two classic retro games that have been implemented: pong and snake, but there is no easy way to install and run these games on a Liquid Galaxy. By creating a basic app with icons representing each game any person with a tablet could easily control which game is being displayed on the screens and even quickly switch between them.
 
 ## Before Running
-- Make sure Node.js version 14 is installed on the master machine, if necessary use the following link for tips on how to install it:
+1. Make sure **Node.js version 14** is installed on the master machine by running:
+```bash
+node -v
+```
+2. The output should look someting like `v14.17.5`, if this is not the case use the following link for tips on how to install it:
 [How To Install Node.js on Ubuntu 16.04](https://tecadmin.net/install-latest-nodejs-npm-on-ubuntu/)
-- After Node.js is installed, Install pm2 on master machine. Run command:
+3. After Node.js is installed, Install pm2 on master machine. Run command:
 ```bash
 sudo npm i -g pm2
 ```
+4. Make sure all the other games are installed on the Liquid Galaxy. The current games repositories can be found at:
+    -  [Galaxy Pacman Repository](https://github.com/LiquidGalaxyLAB/galaxy-pacman)
+    -  [Galaxy Snake Repository](https://github.com/LiquidGalaxyLAB/galaxy-snake)
+    -  [Galaxy Pong Repository](https://github.com/LiquidGalaxyLAB/galaxy-pong)
 
 ## Installing The Project
-After cloning the repository in the master machine navigate to the cloned folder and execute the installation script:
+Firstly, open a new terminal and clone the repository **in the home directory (default directory on terminal)** of the master machine with the command:
+```bash
+git clone https://github.com/LiquidGalaxyLAB/lg-retro-gaming.git
+```
+
+Once the repository is cloned, navigate to the cloned folder and execute the installation script by running the following commands:
 ```bash
 cd lg-retro-gaming
 
