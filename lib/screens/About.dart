@@ -1,7 +1,5 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:lg_retro_gaming/screens/Home.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 // List of images
 final List<String> images = [
@@ -14,29 +12,17 @@ final List<String> images = [
   'assets/pcital.png'
 ];
 
-class SplashScreen extends StatefulWidget {
-  const SplashScreen({Key? key}) : super(key: key);
+class About extends StatefulWidget {
+  const About({Key? key}) : super(key: key);
 
   @override
-  _SplashScreenState createState() => _SplashScreenState();
+  _AboutState createState() => _AboutState();
 }
 
-class _SplashScreenState extends State<SplashScreen> {
+class _AboutState extends State<About> {
   @override
   void initState() {
     super.initState();
-    startTimer();
-  }
-
-  startTimer() async {
-    Duration duration = Duration(seconds: 5);
-
-    return Timer(duration, pushToHome);
-  }
-
-  pushToHome() {
-    Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => Home()));
   }
 
   @override
@@ -45,6 +31,26 @@ class _SplashScreenState extends State<SplashScreen> {
 
     return SafeArea(
       child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.black,
+          actions: [
+            TextButton(
+              onPressed:() => pushToUrl(
+                  'https://github.com/LiquidGalaxyLAB/lg-retro-gaming'),
+              child: Text(
+                'GITHUB',
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+            TextButton(
+              onPressed: () => pushToUrl('https://www.liquidgalaxy.eu/'),
+              child: Text(
+                'LIQUID GALAXY',
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+          ],
+        ),
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -144,11 +150,18 @@ class _SplashScreenState extends State<SplashScreen> {
                   ),
                 ],
               ),
-              CircularProgressIndicator()
             ],
           ),
         ),
       ),
     );
+  }
+
+  void pushToUrl(String url) async {
+    try {
+      await launch(url);
+    } catch(err) {
+      throw 'Could not launch $url';
+    }
   }
 }

@@ -75,13 +75,29 @@ class _HomeState extends State<Home> {
         Positioned(
           top: screenSize.height * 0.01,
           right: screenSize.height * 0.01,
-          child: GestureDetector(
-            onTap: () => pushToSettings(context),
-            child: Icon(
-              Icons.settings,
-              color: const Color(0xFF00FF05),
-              size: screenSize.height * 0.05,
-            ),
+          child: Row(
+            children: [
+              Padding(
+                padding:
+                    EdgeInsets.symmetric(horizontal: screenSize.width * 0.01),
+                child: GestureDetector(
+                  onTap: () => pushToAbout(context),
+                  child: Icon(
+                    Icons.info_outline,
+                    color: const Color(0xFF00FF05),
+                    size: screenSize.height * 0.05,
+                  ),
+                ),
+              ),
+              GestureDetector(
+                onTap: () => pushToSettings(context),
+                child: Icon(
+                  Icons.settings,
+                  color: const Color(0xFF00FF05),
+                  size: screenSize.height * 0.05,
+                ),
+              ),
+            ],
           ),
         ),
         Column(
@@ -167,13 +183,29 @@ class _HomeState extends State<Home> {
         Positioned(
           top: screenSize.height * 0.01,
           right: screenSize.height * 0.01,
-          child: GestureDetector(
-            onTap: () => pushToSettings(context),
-            child: Icon(
-              Icons.settings,
-              color: const Color(0xFF00FF05),
-              size: screenSize.height * 0.08,
-            ),
+          child: Row(
+            children: [
+              Padding(
+                padding:
+                    EdgeInsets.symmetric(horizontal: screenSize.width * 0.01),
+                child: GestureDetector(
+                  onTap: () => pushToAbout(context),
+                  child: Icon(
+                    Icons.info_outline,
+                    color: const Color(0xFF00FF05),
+                    size: screenSize.height * 0.08,
+                  ),
+                ),
+              ),
+              GestureDetector(
+                onTap: () => pushToSettings(context),
+                child: Icon(
+                  Icons.settings,
+                  color: const Color(0xFF00FF05),
+                  size: screenSize.height * 0.08,
+                ),
+              ),
+            ],
           ),
         ),
         Column(
@@ -302,5 +334,9 @@ class _HomeState extends State<Home> {
     ip = store.read('serverIp');
     port = store.read('serverPort');
     connectToServer();
+  }
+
+  void pushToAbout(BuildContext context) async {
+    await Navigator.pushNamed(context, '/about');
   }
 }

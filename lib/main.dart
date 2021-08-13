@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lg_retro_gaming/screens/About.dart';
 import 'package:lg_retro_gaming/screens/Home.dart';
 import 'package:lg_retro_gaming/screens/Settings.dart';
 import 'package:lg_retro_gaming/screens/SplashScreen.dart';
@@ -22,6 +23,7 @@ class MyApp extends StatelessWidget {
         '/': (context) => Home(),
         '/webcontroller': (context) => WebController(),
         '/settings': (context) => Settings(),
+        '/about': (context) => About(),
       },
     );
   }
