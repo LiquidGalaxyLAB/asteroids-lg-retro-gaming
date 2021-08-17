@@ -21,7 +21,12 @@ sudo npm i -g pm2
     -  [Galaxy Pong Repository](https://github.com/LiquidGalaxyLAB/galaxy-pong)
 
 ## Installing The Project
-Firstly, open a new terminal and clone the repository **in the home directory (default directory on terminal)** of the master machine with the command:
+Firstly, open a new terminal and go to the default terminal directory with the command:
+```bash
+cd
+```
+
+Now, clone the repository **in the home directory (default directory on terminal)** of the master machine with the command:
 ```bash
 git clone https://github.com/LiquidGalaxyLAB/lg-retro-gaming.git
 ```
