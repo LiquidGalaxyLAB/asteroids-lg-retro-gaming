@@ -5,23 +5,29 @@
 The idea of playing games on the Liquid Galaxy has already been explored by some developers, there are currently two classic retro games that have been implemented: pong and snake, but there is no easy way to install and run these games on a Liquid Galaxy. By creating a basic app with icons representing each game any person with a tablet could easily control which game is being displayed on the screens and even quickly switch between them.
 
 ## Before Running
-1. Make sure **Node.js version 14** is installed on the master machine by running:
+1. Make sure the Liquid Galaxy core is installed, more info about the installation can be found on this [repository](https://github.com/LiquidGalaxyLAB/liquid-galaxy)
+2. Make sure **Node.js version 14** is installed on the master machine by running:
 ```bash
 node -v
 ```
-2. The output should look someting like `v14.17.5`, if this is not the case use the following link for tips on how to install it:
+3. The output should look someting like `v14.17.5`, if this is not the case use the following link for tips on how to install it:
 [How To Install Node.js on Ubuntu 16.04](https://tecadmin.net/install-latest-nodejs-npm-on-ubuntu/)
-3. After Node.js is installed, Install pm2 on master machine. Run command:
+4. After Node.js is installed, Install pm2 on master machine. Run command:
 ```bash
 sudo npm i -g pm2
 ```
-4. Make sure all the other games are installed on the Liquid Galaxy. The current games repositories can be found at:
+5. Make sure all the other games are installed on the Liquid Galaxy. The current games repositories can be found at:
     -  [Galaxy Pacman Repository](https://github.com/LiquidGalaxyLAB/galaxy-pacman)
     -  [Galaxy Snake Repository](https://github.com/LiquidGalaxyLAB/galaxy-snake)
     -  [Galaxy Pong Repository](https://github.com/LiquidGalaxyLAB/galaxy-pong)
 
 ## Installing The Project
-Firstly, open a new terminal and clone the repository **in the home directory (default directory on terminal)** of the master machine with the command:
+Firstly, open a new terminal and go to the default terminal directory with the command:
+```bash
+cd
+```
+
+Now, clone the repository **in the home directory (default directory on terminal)** of the master machine with the command:
 ```bash
 git clone https://github.com/LiquidGalaxyLAB/lg-retro-gaming.git
 ```
