@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:webview_flutter/webview_flutter.dart';
@@ -31,6 +33,7 @@ class _WebControllerState extends State<WebController> {
   @override
   void initState() {
     super.initState();
+    if (Platform.isAndroid) WebView.platform = SurfaceAndroidWebView();
     connectToServer();
   }
 
