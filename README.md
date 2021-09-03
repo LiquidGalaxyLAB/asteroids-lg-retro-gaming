@@ -2,7 +2,7 @@
 
 # Liquid Galaxy Retro Gaming
 
-The idea of playing games on the Liquid Galaxy has already been explored by some developers, there are currently two classic retro games that have been implemented: pong and snake, but there is no easy way to install and run these games on a Liquid Galaxy. By creating a basic app with icons representing each game any person with a tablet could easily control which game is being displayed on the screens and even quickly switch between them.
+The Liquid Galaxy Retro Gaming is an app created with the intention of making the management of games in the Liquid Galaxy easier for any user. By simply installing the games and the LGRG server on your Liquid Galaxy master you can quickly launch and stop games on all screens and also get access to a specific controller for the chosen game and a QR code for other players to easily access the controller as well! More information about the installation of the games and the LGRG server can be found in the github repository which can be found by clicking the info icon on the top right of the app and then the github button on the app bar.
 
 ## Before Running
 1. Make sure the Liquid Galaxy core is installed, more info about the installation can be found on this [repository](https://github.com/LiquidGalaxyLAB/liquid-galaxy)
@@ -54,3 +54,9 @@ Now that the server is running, make sure the android device and the liquid gala
     - Pong Port: 8112
 - Once all the values are set, click the “Save” button on the bottom of the screen.
 - The app is now ready to be used!
+
+## License
+
+This software is under the [MIT License](https://en.wikipedia.org/wiki/MIT_License)
+
+Copyright 2021 [Leonardo Coelho Ruas](https://www.linkedin.com/in/leonardo-ruas-2657a41b4/)
