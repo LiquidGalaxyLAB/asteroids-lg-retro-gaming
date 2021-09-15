@@ -1,9 +1,9 @@
 [![License](https://img.shields.io/github/license/LiquidGalaxyLAB/lg-retro-gaming.svg)](https://opensource.org/licenses/Apache-2.0) [![github-languages-image](https://img.shields.io/github/languages/top/LiquidGalaxyLAB/lg-retro-gaming.svg?color=red)]() [![github-language-count-image](https://img.shields.io/github/languages/count/LiquidGalaxyLAB/lg-retro-gaming.svg)]() [![Issues](https://img.shields.io/github/issues/LiquidGalaxyLAB/lg-retro-gaming.svg)](https://github.com/LiquidGalaxyLAB/lg-retro-gaming/issues) [![forks](https://img.shields.io/github/forks/LiquidGalaxyLAB/lg-retro-gaming.svg)]() [![github-repo-size-image](https://img.shields.io/github/repo-size/LiquidGalaxyLAB/lg-retro-gaming.svg?color=yellow)]()
 
 # 🎮 Liquid Galaxy Retro Gaming
-
-<img src="./assets/LGRG_Logo.png" width="80%">
-
+<p align="center">
+<img src="./assets/LGRG_Logo.png" width="50%">
+</p>
 
 The Liquid Galaxy Retro Gaming is an app created with the intention of making the management of games in the Liquid Galaxy easier for any user. By simply installing the games and the LGRG server on your Liquid Galaxy master you can quickly launch and stop games on all screens and also get access to a specific controller for the chosen game and a QR code for other players to easily access the controller as well!
 
@@ -49,7 +49,9 @@ If you experience any problems, check the installation logs for any possible err
 ## 📱 App setup
 Now that the server is running, make sure the android device and the liquid galaxy are connected to the **same wi-fi** network berfore running the app. Once that's done, the setup is very simple.
 - First, open the app and go to the settings page (cog icon on the top right of the screen)
+<p align="center">
 <img src="./assets/tutorial1.png" width="80%">
+</p>
 
 - On the settings screens set all the variables to the following values
     - Server Ip: Master machine ipv4 (including the dots e.g.: 192.168.0.124)
@@ -58,7 +60,9 @@ Now that the server is running, make sure the android device and the liquid gala
     - Snake Port: 8114
     - Pong Port: 8112
 - Once all the values are set, click the “Save” button on the bottom of the screen.
+<p align="center">
 <img src="./assets/tutorial2.png" width="80%">
+</p>
 
 - The app is now ready to be used!
 
