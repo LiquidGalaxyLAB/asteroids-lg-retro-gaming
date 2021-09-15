@@ -1,10 +1,10 @@
 [![License](https://img.shields.io/github/license/LiquidGalaxyLAB/lg-retro-gaming.svg)](https://opensource.org/licenses/Apache-2.0) [![github-languages-image](https://img.shields.io/github/languages/top/LiquidGalaxyLAB/lg-retro-gaming.svg?color=red)]() [![github-language-count-image](https://img.shields.io/github/languages/count/LiquidGalaxyLAB/lg-retro-gaming.svg)]() [![Issues](https://img.shields.io/github/issues/LiquidGalaxyLAB/lg-retro-gaming.svg)](https://github.com/LiquidGalaxyLAB/lg-retro-gaming/issues) [![forks](https://img.shields.io/github/forks/LiquidGalaxyLAB/lg-retro-gaming.svg)]() [![github-repo-size-image](https://img.shields.io/github/repo-size/LiquidGalaxyLAB/lg-retro-gaming.svg?color=yellow)]()
 
-# Liquid Galaxy Retro Gaming
+# 🎮 Liquid Galaxy Retro Gaming
+![Project Logo](/assets/LGRG_logo.png)
+The Liquid Galaxy Retro Gaming is an app created with the intention of making the management of games in the Liquid Galaxy easier for any user. By simply installing the games and the LGRG server on your Liquid Galaxy master you can quickly launch and stop games on all screens and also get access to a specific controller for the chosen game and a QR code for other players to easily access the controller as well!
 
-The Liquid Galaxy Retro Gaming is an app created with the intention of making the management of games in the Liquid Galaxy easier for any user. By simply installing the games and the LGRG server on your Liquid Galaxy master you can quickly launch and stop games on all screens and also get access to a specific controller for the chosen game and a QR code for other players to easily access the controller as well! More information about the installation of the games and the LGRG server can be found in the github repository which can be found by clicking the info icon on the top right of the app and then the github button on the app bar.
-
-## Before Running
+## 📝 Before Running
 1. Make sure the Liquid Galaxy core is installed, more info about the installation can be found on this [repository](https://github.com/LiquidGalaxyLAB/liquid-galaxy)
 2. Make sure **Node.js version 14** is installed on the master machine by running:
 ```bash
@@ -21,7 +21,7 @@ sudo npm i -g pm2
     -  [Galaxy Snake Repository](https://github.com/LiquidGalaxyLAB/galaxy-snake)
     -  [Galaxy Pong Repository](https://github.com/LiquidGalaxyLAB/galaxy-pong)
 
-## Installing The Project
+## 👨‍💻 Installing The Project
 Firstly, open a new terminal and go to the default terminal directory with the command:
 ```bash
 cd
@@ -43,20 +43,22 @@ Once the installation is finished, make sure to reboot the machine.
 
 If you experience any problems, check the installation logs for any possible errors in the logs folder, there will be a file with the date of installation as it's name.
 
-## App setup
+## 📱 App setup
 Now that the server is running, make sure the android device and the liquid galaxy are connected to the **same wi-fi** network berfore running the app. Once that's done, the setup is very simple.
 - First, open the app and go to the settings page (cog icon on the top right of the screen)
+![Project Logo](/assets/tutorial1.png)
 - On the settings screens set all the variables to the following values
-    - Server Ip: Master machine ipv4 (including the dots e.g.: 192.168.0.123)
+    - Server Ip: Master machine ipv4 (including the dots e.g.: 192.168.0.124)
     - Server Port: 3123
     - Pacman Port: 8128
     - Snake Port: 8114
     - Pong Port: 8112
 - Once all the values are set, click the “Save” button on the bottom of the screen.
+![Project Logo](/assets/tutorial2.png)
 - The app is now ready to be used!
 
-## License
+## 📃 License
 
 This software is under the [MIT License](https://en.wikipedia.org/wiki/MIT_License)
 
-Copyright 2021 [Leonardo Coelho Ruas](https://www.linkedin.com/in/leonardo-ruas-2657a41b4/)
+Copyright 2021 [Leonardo Coelho Ruas](https://www.linkedin.com/in/leonardo-ruas/)
