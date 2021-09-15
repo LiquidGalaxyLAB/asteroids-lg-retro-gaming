@@ -1,6 +1,6 @@
 [![License](https://img.shields.io/github/license/LiquidGalaxyLAB/lg-retro-gaming.svg)](https://opensource.org/licenses/Apache-2.0) [![github-languages-image](https://img.shields.io/github/languages/top/LiquidGalaxyLAB/lg-retro-gaming.svg?color=red)]() [![github-language-count-image](https://img.shields.io/github/languages/count/LiquidGalaxyLAB/lg-retro-gaming.svg)]() [![Issues](https://img.shields.io/github/issues/LiquidGalaxyLAB/lg-retro-gaming.svg)](https://github.com/LiquidGalaxyLAB/lg-retro-gaming/issues) [![forks](https://img.shields.io/github/forks/LiquidGalaxyLAB/lg-retro-gaming.svg)]() [![github-repo-size-image](https://img.shields.io/github/repo-size/LiquidGalaxyLAB/lg-retro-gaming.svg?color=yellow)]()
 
-# 🎮 Liquid Galaxy Retro Gaming
+# 🕹️ Liquid Galaxy Retro Gaming
 <p align="center">
 <img src="./assets/LGRG_Logo.png" width="50%">
 </p>
