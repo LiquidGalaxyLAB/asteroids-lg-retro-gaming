@@ -1,14 +1,18 @@
 {
-    "pacman": {
-        "openScript": "~/galaxy-pacman/Bash/open-pacman.sh",
-        "closeScript": "~/galaxy-pacman/Bash/kill-pacman.sh"
-    },
-    "snake": {
-        "openScript": "~/galaxy-snake/Bash/open-snake.sh",
-        "closeScript": "~/galaxy-snake/Bash/kill-snake.sh"
-    },
-    "pong": {
-        "openScript": "~/galaxy-pong/Bash/open-pong.sh",
-        "closeScript": "~/galaxy-pong/Bash/kill-pong.sh"
-    }
+  "asteroids": {
+    "openScript": "~/galaxy-asteroids/scripts/open.sh",
+    "closeScript": "~/galaxy-asteroids/scripts/close.sh"
+  },
+  "pacman": {
+    "openScript": "~/galaxy-pacman/Bash/open-pacman.sh",
+    "closeScript": "~/galaxy-pacman/Bash/kill-pacman.sh"
+  },
+  "snake": {
+    "openScript": "~/galaxy-snake/Bash/open-snake.sh",
+    "closeScript": "~/galaxy-snake/Bash/kill-snake.sh"
+  },
+  "pong": {
+    "openScript": "~/galaxy-pong/Bash/open-pong.sh",
+    "closeScript": "~/galaxy-pong/Bash/kill-pong.sh"
+  }
 }
