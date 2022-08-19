@@ -136,7 +136,7 @@ class _SplashScreenState extends State<SplashScreen> {
                   Container(
                     child: Center(
                       child: Image.asset(
-                        'assets/tic_logo.png',
+                        'assets/TIC_Logo.png',
                         fit: BoxFit.contain,
                       ),
                     ),
