@@ -10,6 +10,7 @@ final store = GetStorage();
 
 // List of images with their respective gameName (must be the same name as in games.json)
 final List<Map<String, dynamic>> imgList = [
+  {'image': 'assets/asteroids.png', 'gameName': 'asteroids'},
   {'image': 'assets/pacman.png', 'gameName': 'pacman'},
   {'image': 'assets/pong.png', 'gameName': 'pong'},
   {'image': 'assets/snake.png', 'gameName': 'snake'}
@@ -283,6 +284,7 @@ class _HomeState extends State<Home> {
       // set default values for variables
       store.write('serverIp', '192.168.0.123');
       store.write('serverPort', '3123');
+      store.write('asteroidsPort', '8129');
       store.write('pacmanPort', '8128');
       store.write('snakePort', '8114');
       store.write('pongPort', '8112');

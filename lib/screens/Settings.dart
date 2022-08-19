@@ -12,6 +12,7 @@ class _SettingsState extends State<Settings> {
   final formKey = GlobalKey<FormState>();
   final String? serverIp = store.read('serverIp');
   final String? serverPort = store.read('serverPort');
+  final String? asteroidsPort = store.read('asteroidsPort');
   final String? pacmanPort = store.read('pacmanPort');
   final String? snakePort = store.read('snakePort');
   final String? pongPort = store.read('pongPort');
@@ -113,6 +114,39 @@ class _SettingsState extends State<Settings> {
                     onSaved: (input) => store.write('serverPort', input),
                     validator: (input) =>
                         input?.length == 0 ? 'Server port is required' : null,
+                  ),
+                ),
+                Padding(
+                  padding:
+                      EdgeInsets.symmetric(vertical: screenSize.width * 0.01),
+                  child: TextFormField(
+                    style: TextStyle(color: Color(0xFF00FF05)),
+                    initialValue: asteroidsPort,
+                    decoration: InputDecoration(
+                      errorBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                        color: Colors.red,
+                        width: screenSize.height * 0.003,
+                      )),
+                      labelText: 'Asteroids Port',
+                      labelStyle: TextStyle(color: Color(0xFF00FF05)),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Colors.green,
+                          width: screenSize.height * 0.003,
+                        ),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Colors.green,
+                          width: screenSize.height * 0.003,
+                        ),
+                      ),
+                    ),
+                    onSaved: (input) => store.write('asteroidsPort', input),
+                    validator: (input) => input?.length == 0
+                        ? 'Asteroids port is required'
+                        : null,
                   ),
                 ),
                 Padding(
@@ -311,6 +345,39 @@ class _SettingsState extends State<Settings> {
                       onSaved: (input) => store.write('serverPort', input),
                       validator: (input) =>
                           input?.length == 0 ? 'Server port is required' : null,
+                    ),
+                  ),
+                  Padding(
+                    padding:
+                        EdgeInsets.symmetric(vertical: screenSize.width * 0.01),
+                    child: TextFormField(
+                      style: TextStyle(color: Color(0xFF00FF05)),
+                      initialValue: asteroidsPort,
+                      decoration: InputDecoration(
+                        errorBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                          color: Colors.red,
+                          width: screenSize.height * 0.003,
+                        )),
+                        labelText: 'Asteroids Port',
+                        labelStyle: TextStyle(color: Color(0xFF00FF05)),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Color(0xFF00FF05),
+                            width: screenSize.height * 0.003,
+                          ),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Color(0xFF00FF05),
+                            width: screenSize.height * 0.003,
+                          ),
+                        ),
+                      ),
+                      onSaved: (input) => store.write('asteroidsPort', input),
+                      validator: (input) => input?.length == 0
+                          ? 'Asteroids port is required'
+                          : null,
                     ),
                   ),
                   Padding(

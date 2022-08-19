@@ -20,6 +20,7 @@ class _WebControllerState extends State<WebController> {
 
   // Will contain all the ports e.g. ports['pacman'] is pacman game port (set in loadEnv method)
   final Map<String, String?> ports = {
+    'asteroids': store.read('asteroidsPort'),
     'pacman': store.read('pacmanPort'),
     'snake': store.read('snakePort'),
     'pong': store.read('pongPort')
@@ -55,39 +56,43 @@ class _WebControllerState extends State<WebController> {
             },
           ),
           actions: [
-            IconButton(
-                onPressed: () {
-                  showDialog(
-                      context: context,
-                      builder: (context) {
-                        return Center(
-                          child: Card(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                QrImage(
-                                  size: screenSize.height * 0.5,
-                                  data:
-                                      "http://$serverIp:${ports[currentGame]}/controller",
+            currentGame == "asteroids"
+                ? Container()
+                : IconButton(
+                    onPressed: () {
+                      showDialog(
+                          context: context,
+                          builder: (context) {
+                            return Center(
+                              child: Card(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    QrImage(
+                                      size: screenSize.height * 0.5,
+                                      data:
+                                          "http://$serverIp:${ports[currentGame]}/controller",
+                                    ),
+                                    // Text(
+                                    //   "http://$serverIp:${ports[currentGame]}/controller",
+                                    //   style: TextStyle(
+                                    //     fontSize: screenSize.height * 0.05,
+                                    //   ),
+                                    // )
+                                  ],
                                 ),
-                                // Text(
-                                //   "http://$serverIp:${ports[currentGame]}/controller",
-                                //   style: TextStyle(
-                                //     fontSize: screenSize.height * 0.05,
-                                //   ),
-                                // )
-                              ],
-                            ),
-                          ),
-                        );
-                      });
-                },
-                icon: Icon(Icons.qr_code_2))
+                              ),
+                            );
+                          });
+                    },
+                    icon: Icon(Icons.qr_code_2))
           ],
         ),
         body: WebView(
-          initialUrl: "http://$serverIp:${ports[currentGame]}/controller",
+          initialUrl: currentGame == "asteroids"
+              ? "http://$serverIp:${ports[currentGame]}/"
+              : "http://$serverIp:${ports[currentGame]}/controller",
           javascriptMode: JavascriptMode.unrestricted,
           onWebResourceError: (_) {
             Navigator.of(context).pushNamed('errorPage');
