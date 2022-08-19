@@ -35,7 +35,7 @@ class _AboutState extends State<About> {
           backgroundColor: Colors.black,
           actions: [
             TextButton(
-              onPressed:() => pushToUrl(
+              onPressed: () => pushToUrl(
                   'https://github.com/LiquidGalaxyLAB/lg-retro-gaming'),
               child: Text(
                 'GITHUB',
@@ -159,8 +159,8 @@ class _AboutState extends State<About> {
 
   void pushToUrl(String url) async {
     try {
-      await launch(url);
-    } catch(err) {
+      await launchUrl(Uri.parse(url));
+    } catch (err) {
       throw 'Could not launch $url';
     }
   }
