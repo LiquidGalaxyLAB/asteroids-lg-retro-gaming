@@ -84,4 +84,4 @@ Now that the server is running, make sure the android device and the liquid gala
 
 This software is under the [MIT License](https://en.wikipedia.org/wiki/MIT_License)
 
-Copyright 2022 [Leonardo Coelho Ruas](https://www.linkedin.com/in/leonardo-ruas/) [Michell Algarra Barros](https://www.linkedin.com/in/mchalgarra/) 
+Copyright 2022 [Leonardo Coelho Ruas](https://www.linkedin.com/in/leonardo-ruas/) - [Michell Algarra Barros](https://www.linkedin.com/in/mchalgarra/) 
