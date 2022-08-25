@@ -58,5 +58,3 @@ eval $RESURRECT 2>> ./logs/$filename
 
 time=$(date +%H:%M:%S)
 echo "[$time] Installation complete. Reboot machine to finish installation" | tee -a ./logs/$filename
-
-echo $PW | sudo -S reboot
