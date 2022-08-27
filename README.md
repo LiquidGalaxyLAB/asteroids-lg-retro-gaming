@@ -59,6 +59,8 @@ Once the installation is finished, make sure to reboot the machine.
 
 If you experience any problems, check the installation logs for any possible errors in the logs folder, there will be a file with the date of installation as it's name.
 
+> _To run/build the project using the CLI, you shall pass the `--no-sound-null-safety` flag, once the project uses the SSH package._
+
 ## 📱 App setup
 
 Now that the server is running, make sure the android device and the liquid galaxy are connected to the **same wi-fi** network berfore running the app. Once that's done, the setup is very simple.
@@ -86,4 +88,4 @@ Now that the server is running, make sure the android device and the liquid gala
 
 This software is under the [MIT License](https://en.wikipedia.org/wiki/MIT_License)
 
-Copyright 2022 [Leonardo Coelho Ruas](https://www.linkedin.com/in/leonardo-ruas/) - [Michell Algarra Barros](https://www.linkedin.com/in/mchalgarra/) 
+Copyright 2022 [Leonardo Coelho Ruas](https://www.linkedin.com/in/leonardo-ruas/) - [Michell Algarra Barros](https://www.linkedin.com/in/mchalgarra/)
