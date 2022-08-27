@@ -50,8 +50,10 @@ Once the repository is cloned, navigate to the cloned folder and execute the ins
 ```bash
 cd lg-retro-gaming
 
-bash install.sh
+bash install.sh {password}
 ```
+
+> _The {password} is the rig password._
 
 Once the installation is finished, make sure to reboot the machine.
 
