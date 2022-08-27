@@ -45,7 +45,7 @@ echo $PW | sudo -S pm2 delete LGRG_PORT:3123 2> /dev/null
 # Start server
 time=$(date +%H:%M:%S)
 echo "[$time] Starting pm2..."
-echo $PW | sudo -S pm2 start ./server/index.js --name LGRG_PORT:3123
+echo $PW | sudo -S pm2 start $BASE_FOLDER/server/index.js --name LGRG_PORT:3123
 
 echo $PW | sudo -S pm2 save
 
