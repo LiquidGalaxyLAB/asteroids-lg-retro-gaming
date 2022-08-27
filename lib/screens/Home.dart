@@ -5,6 +5,7 @@ import 'package:carousel_slider/carousel_controller.dart';
 import 'package:carousel_slider/carousel_options.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:ssh/ssh.dart';
 
 final store = GetStorage();
 
@@ -40,6 +41,8 @@ class _HomeState extends State<Home> {
   String? port = store.read('serverPort');
   // Carrousel controller -> used for changing pages in the image carrousel
   final CarouselController _controller = CarouselController();
+
+  bool _installing = false;
 
   @override
   void initState() {
@@ -157,18 +160,51 @@ class _HomeState extends State<Home> {
               ),
             ]),
             Padding(
-              padding: EdgeInsets.symmetric(vertical: screenSize.height * 0.05),
+              padding: EdgeInsets.only(top: screenSize.height * 0.05),
               child: GestureDetector(
-                onTap: () => openGame(context),
+                onTap: () {
+                  if (_installing) {
+                    return;
+                  }
+
+                  openGame(context);
+                },
                 child: Container(
                   height: screenSize.height * 0.07,
                   child: Image.asset(
                     'assets/openBtn.png',
                     fit: BoxFit.fill,
+                    color:
+                        _installing ? Color(0xFF00FF05).withOpacity(0.5) : null,
+                    colorBlendMode: _installing ? BlendMode.modulate : null,
                   ),
                 ),
               ),
             ),
+            imgList[currentPage]['gameName'] != 'asteroids'
+                ? Container()
+                : Padding(
+                    padding: EdgeInsets.only(bottom: screenSize.height * 0.05),
+                    child: GestureDetector(
+                      onTap: () {
+                        if (_installing) {
+                          return;
+                        }
+
+                        installGame(context);
+                      },
+                      child: _installing
+                          ? CircularProgressIndicator(
+                              color: const Color(0xFF00FF05))
+                          : Container(
+                              height: screenSize.height * 0.07,
+                              child: Image.asset(
+                                'assets/installBtn.png',
+                                fit: BoxFit.fill,
+                              ),
+                            ),
+                    ),
+                  ),
           ],
         ),
       ],
@@ -262,15 +298,45 @@ class _HomeState extends State<Home> {
               ),
             ]),
             GestureDetector(
-              onTap: () => openGame(context),
+              onTap: () {
+                if (_installing) {
+                  return;
+                }
+
+                openGame(context);
+              },
               child: Container(
                 height: screenSize.height * 0.1,
                 child: Image.asset(
                   'assets/openBtn.png',
                   fit: BoxFit.fill,
+                  color:
+                      _installing ? Color(0xFF00FF05).withOpacity(0.5) : null,
+                  colorBlendMode: _installing ? BlendMode.modulate : null,
                 ),
               ),
             ),
+            imgList[currentPage]['gameName'] != 'asteroids'
+                ? Container()
+                : GestureDetector(
+                    onTap: () {
+                      if (_installing) {
+                        return;
+                      }
+
+                      installGame(context);
+                    },
+                    child: _installing
+                        ? CircularProgressIndicator(
+                            color: const Color(0xFF00FF05))
+                        : Container(
+                            height: screenSize.height * 0.1,
+                            child: Image.asset(
+                              'assets/installBtn.png',
+                              fit: BoxFit.fill,
+                            ),
+                          ),
+                  ),
           ],
         ),
       ],
@@ -299,10 +365,11 @@ class _HomeState extends State<Home> {
       socket.connect();
 
       socket.on(
-          'connect',
-          (_) => setState(() {
-                print('Connected to socket with id: ${socket.id}');
-              }));
+        'connect',
+        (_) => setState(() {
+          print('Connected to socket with id: ${socket.id}');
+        }),
+      );
     } catch (e) {
       print(e.toString());
     }
@@ -314,7 +381,6 @@ class _HomeState extends State<Home> {
     // Get game name based on current page
     final String game = imgList[currentPage]['gameName'];
 
-    // Emit for socket to open game
     socket.emit('open-game', game);
     print('open: ' + game);
 
@@ -323,6 +389,50 @@ class _HomeState extends State<Home> {
       '/webcontroller',
       arguments: {'currentGame': game},
     );
+  }
+
+  // Installs the game based on its repository and install script.
+  void installGame(BuildContext context) async {
+    setState(() {
+      _installing = true;
+    });
+
+    try {
+      final String? serverIp = store.read('serverIp');
+
+      if (serverIp == null) {
+        return;
+      }
+
+      final client = SSHClient(
+          host: serverIp, port: 22, username: 'lg', passwordOrKey: 'lq');
+
+      await client.connect();
+
+      await client.execute('echo lq | sudo -S apt install git-all');
+
+      await client.execute(
+          'echo lq | sudo -S git clone -b installer https://github.com/LiquidGalaxyLAB/lg-retro-gaming');
+      await client.execute(
+          'echo lq | sudo -S git clone -b develop https://github.com/LiquidGalaxyLAB/galaxy-asteroids');
+
+      await client.execute(
+          'cd ~/lg-retro-gaming && bash ~/lg-retro-gaming/install.sh lq');
+      await client.execute(
+          'cd ~/galaxy-asteroids && bash ~/galaxy-asteroids/install.sh lq');
+
+      showError('Game successfully installed');
+    } catch (e) {
+      showError('An error occured while installing the game');
+      print(e);
+      setState(() {
+        _installing = false;
+      });
+    } finally {
+      setState(() {
+        _installing = false;
+      });
+    }
   }
 
   // Push to settings screen and reconnect to socket server when back to main screen
@@ -340,5 +450,24 @@ class _HomeState extends State<Home> {
 
   void pushToAbout(BuildContext context) async {
     await Navigator.pushNamed(context, '/about');
+  }
+
+  void showError(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: Text(
+        message,
+        style: TextStyle(
+          color: Colors.black87,
+          fontSize: 16,
+          fontWeight: FontWeight.w500,
+        ),
+      ),
+      margin: const EdgeInsets.fromLTRB(16, 5, 16, 16),
+      padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+      behavior: SnackBarBehavior.floating,
+      dismissDirection: DismissDirection.horizontal,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+      backgroundColor: Colors.grey.shade100.withOpacity(0.95),
+    ));
   }
 }
