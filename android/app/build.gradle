@@ -40,8 +40,9 @@ android {
 
     defaultConfig {
         applicationId "com.leoruas.lg_retro_gaming"
-        minSdkVersion 19
-        targetSdkVersion 30
+        minSdkVersion 20
+        targetSdkVersion 31
+        multiDexEnabled true
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
     }
@@ -57,6 +58,8 @@ android {
    buildTypes {
        release {
            signingConfig signingConfigs.release
+
+           minifyEnabled true
        }
    }
 }
