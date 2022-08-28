@@ -8,6 +8,8 @@
 
 The Liquid Galaxy Retro Gaming is an app created with the intention of making the management of games in the Liquid Galaxy easier for any user. By simply installing the games and the LGRG server on your Liquid Galaxy master you can quickly launch and stop games on all screens and also get access to a specific controller for the chosen game and a QR code for other players to easily access the controller as well!
 
+You may download the [APK](https://github.com/LiquidGalaxyLAB/lg-retro-gaming/tree/main/releases) available into this repository.
+
 ## 📝 Before Running
 
 1. Make sure the Liquid Galaxy core is installed, more info about the installation can be found on this [repository](https://github.com/LiquidGalaxyLAB/liquid-galaxy)
