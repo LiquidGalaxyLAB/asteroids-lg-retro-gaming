@@ -411,10 +411,13 @@ class _HomeState extends State<Home> {
 
       await client.execute('echo lq | sudo -S apt install git-all');
 
+      await client.execute('echo lq | sudo -S rm -rf lg-retro-gaming');
+      await client.execute('echo lq | sudo -S rm -rf galaxy-asteroids');
+
       await client.execute(
-          'echo lq | sudo -S git clone -b installer https://github.com/LiquidGalaxyLAB/lg-retro-gaming');
+          'echo lq | sudo -S git clone https://github.com/LiquidGalaxyLAB/lg-retro-gaming');
       await client.execute(
-          'echo lq | sudo -S git clone -b develop https://github.com/LiquidGalaxyLAB/galaxy-asteroids');
+          'echo lq | sudo -S git clone https://github.com/LiquidGalaxyLAB/galaxy-asteroids');
 
       await client.execute(
           'cd ~/lg-retro-gaming && bash ~/lg-retro-gaming/install.sh lq');
