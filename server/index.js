@@ -65,7 +65,7 @@ io.on("connect", (socket) => {
     try {
       console.log("Closing game: ", currentGame);
       console.log(`execute: bash ${games[currentGame].closeScript}`);
-      exec(`bash ${games[currentGame].closeScript}`, (err) => {
+      exec(`bash ${games[currentGame].closeScript} lq`, (err) => {
         if (err) {
           console.error(`Error executing ${games[currentGame].closeScript}`);
           console.error(err);
