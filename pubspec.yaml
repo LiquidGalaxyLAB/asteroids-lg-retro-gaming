@@ -16,7 +16,6 @@ dependencies:
   socket_io_client: ^1.0.1
   webview_flutter: ^2.0.8
   get_storage: ^2.0.2
-  qr_flutter: ^4.0.0
   url_launcher: ^6.0.9
   ssh: ^0.0.7
 
