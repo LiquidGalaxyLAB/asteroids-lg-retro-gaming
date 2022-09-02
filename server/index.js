@@ -4,7 +4,7 @@ const { exec } = require("child_process"); //exec function is used to execute sc
 const express = require("express");
 const app = express();
 const http = require("http").createServer(app);
-const port = 3123; // server port
+const port = 3124; // server port
 
 // setup file to be sent on connection
 const filePath = "/public"; // do not add '/' at the end

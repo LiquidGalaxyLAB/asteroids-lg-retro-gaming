@@ -2,17 +2,5 @@
   "asteroids": {
     "openScript": "/home/lg/galaxy-asteroids/scripts/open.sh",
     "closeScript": "/home/lg/galaxy-asteroids/scripts/close.sh"
-  },
-  "pacman": {
-    "openScript": "/home/lg/galaxy-pacman/Bash/open-pacman.sh",
-    "closeScript": "/home/lg/galaxy-pacman/Bash/kill-pacman.sh"
-  },
-  "snake": {
-    "openScript": "/home/lg/galaxy-snake/Bash/open-snake.sh",
-    "closeScript": "/home/lg/galaxy-snake/Bash/kill-snake.sh"
-  },
-  "pong": {
-    "openScript": "/home/lg/galaxy-pong/Bash/open-pong.sh",
-    "closeScript": "/home/lg/galaxy-pong/Bash/kill-pong.sh"
   }
 }
