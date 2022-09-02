@@ -40,7 +40,7 @@ io.on("connect", (socket) => {
 
   /**
    * Open the game based on gameName
-   * @param {String} gameName game name to execute open script (must be the same as the one in games.json -> eg. "pacman", "pong")
+   * @param {String} gameName game name to execute open script (must be the same as the one in games.json)
    */
   function openGame(gameName) {
     // save the  current game name
