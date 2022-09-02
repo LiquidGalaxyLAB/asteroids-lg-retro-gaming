@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:qr_flutter/qr_flutter.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:socket_io_client/socket_io_client.dart';
 import 'package:get_storage/get_storage.dart';
@@ -18,12 +17,9 @@ class WebController extends StatefulWidget {
 class _WebControllerState extends State<WebController> {
   // Is set to true once everything is loaded (set in loadEnv method)
 
-  // Will contain all the ports e.g. ports['pacman'] is pacman game port (set in loadEnv method)
+  // Will contain all the ports
   final Map<String, String?> ports = {
     'asteroids': store.read('asteroidsPort'),
-    'pacman': store.read('pacmanPort'),
-    'snake': store.read('snakePort'),
-    'pong': store.read('pongPort')
   };
 
   // Will contain server Ip (set in loadEnv method)
@@ -42,12 +38,11 @@ class _WebControllerState extends State<WebController> {
   Widget build(BuildContext context) {
     final arguments = ModalRoute.of(context)?.settings.arguments as Map;
     final String currentGame = arguments['currentGame'];
-    Size screenSize = MediaQuery.of(context).size;
 
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.black,
+          backgroundColor: const Color(0xFF2D2D2D),
           leading: new IconButton(
             icon: new Icon(Icons.arrow_back),
             onPressed: () {
@@ -55,44 +50,15 @@ class _WebControllerState extends State<WebController> {
               Navigator.pop(context);
             },
           ),
-          actions: [
-            currentGame == "asteroids"
-                ? Container()
-                : IconButton(
-                    onPressed: () {
-                      showDialog(
-                          context: context,
-                          builder: (context) {
-                            return Center(
-                              child: Card(
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    QrImage(
-                                      size: screenSize.height * 0.5,
-                                      data:
-                                          "http://$serverIp:${ports[currentGame]}/controller",
-                                    ),
-                                    // Text(
-                                    //   "http://$serverIp:${ports[currentGame]}/controller",
-                                    //   style: TextStyle(
-                                    //     fontSize: screenSize.height * 0.05,
-                                    //   ),
-                                    // )
-                                  ],
-                                ),
-                              ),
-                            );
-                          });
-                    },
-                    icon: Icon(Icons.qr_code_2))
-          ],
+          title: const Text(
+            'Joystick',
+            style: TextStyle(
+              color: Colors.white,
+            ),
+          ),
         ),
         body: WebView(
-          initialUrl: currentGame == "asteroids"
-              ? "http://$serverIp:${ports[currentGame]}/"
-              : "http://$serverIp:${ports[currentGame]}/controller",
+          initialUrl: 'http://$serverIp:${ports[currentGame]}/',
           javascriptMode: JavascriptMode.unrestricted,
           onWebResourceError: (_) {
             Navigator.of(context).pushNamed('errorPage');

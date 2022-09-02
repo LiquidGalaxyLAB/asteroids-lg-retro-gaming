@@ -5,7 +5,7 @@ import 'package:url_launcher/url_launcher.dart';
 final List<String> images = [
   'assets/gsoc.png',
   'assets/LGLogo.png',
-  'assets/LGRG_Logo.png',
+  'assets/app_logo.png',
   'assets/LGLab_Logo.png',
   'assets/LogoLGEU.png',
   'assets/TIC_Logo.png',
@@ -32,11 +32,13 @@ class _AboutState extends State<About> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.black,
+          title: const Text('About', style: TextStyle(color: Colors.white)),
+          backgroundColor: const Color(0xFF2D2D2D),
+          elevation: 0,
           actions: [
             TextButton(
               onPressed: () => pushToUrl(
-                  'https://github.com/LiquidGalaxyLAB/lg-retro-gaming'),
+                  'https://github.com/LiquidGalaxyLAB/asteroids-lg-retro-gaming'),
               child: Text(
                 'GITHUB',
                 style: TextStyle(color: Colors.white),
@@ -59,7 +61,7 @@ class _AboutState extends State<About> {
               Container(
                 child: Center(
                   child: Image.asset(
-                    'assets/LGRG_Logo.png',
+                    'assets/app_logo.png',
                     fit: BoxFit.contain,
                   ),
                 ),
@@ -142,7 +144,7 @@ class _AboutState extends State<About> {
                   Container(
                     child: Center(
                       child: Image.asset(
-                        'assets/tic_logo.png',
+                        'assets/TIC_Logo.png',
                         fit: BoxFit.contain,
                       ),
                     ),

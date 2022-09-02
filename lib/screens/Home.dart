@@ -1,33 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:socket_io_client/socket_io_client.dart';
-import 'package:carousel_slider/carousel_controller.dart';
-import 'package:carousel_slider/carousel_options.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:ssh/ssh.dart';
 
 final store = GetStorage();
-
-// List of images with their respective gameName (must be the same name as in games.json)
-final List<Map<String, dynamic>> imgList = [
-  {'image': 'assets/asteroids.png', 'gameName': 'asteroids'},
-  {'image': 'assets/pacman.png', 'gameName': 'pacman'},
-  {'image': 'assets/pong.png', 'gameName': 'pong'},
-  {'image': 'assets/snake.png', 'gameName': 'snake'}
-];
-
-// Create list of widgets for carrousel display
-final List<Widget> imageSliders = imgList
-    .map((item) => Container(
-          child: Center(
-            child: Image.asset(item['image'], fit: BoxFit.contain),
-          ),
-        ))
-    .toList();
-
-// Current page index -> Used for getting correct gameName from imgList variable
-int currentPage = 0;
 
 class Home extends StatefulWidget {
   @override
@@ -39,8 +16,6 @@ class _HomeState extends State<Home> {
   late Socket socket;
   String? ip = store.read('serverIp');
   String? port = store.read('serverPort');
-  // Carrousel controller -> used for changing pages in the image carrousel
-  final CarouselController _controller = CarouselController();
 
   bool _installing = false;
 
@@ -58,7 +33,7 @@ class _HomeState extends State<Home> {
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: false,
-        backgroundColor: Color(0xff161616),
+        backgroundColor: Color(0xFF2D2D2D),
         body: OrientationBuilder(
           builder: (BuildContext context, Orientation orientation) {
             return orientation == Orientation.portrait
@@ -88,7 +63,7 @@ class _HomeState extends State<Home> {
                   onTap: () => pushToAbout(context),
                   child: Icon(
                     Icons.info_outline,
-                    color: const Color(0xFF00FF05),
+                    color: const Color(0xFF3AA1FF),
                     size: screenSize.height * 0.05,
                   ),
                 ),
@@ -97,7 +72,7 @@ class _HomeState extends State<Home> {
                 onTap: () => pushToSettings(context),
                 child: Icon(
                   Icons.settings,
-                  color: const Color(0xFF00FF05),
+                  color: const Color(0xFF3AA1FF),
                   size: screenSize.height * 0.05,
                 ),
               ),
@@ -110,52 +85,21 @@ class _HomeState extends State<Home> {
             Padding(
               padding: EdgeInsets.only(bottom: screenSize.height * 0.1),
               child: Text(
-                "Liquid Galaxy Retro Gaming",
+                "Asteroids Liquid Galaxy Retro Gaming",
                 style: TextStyle(
                   fontFamily: 'RetroFont',
                   fontSize: screenSize.height * 0.035,
-                  color: const Color(0xFF00FF05),
+                  color: const Color(0xFF3AA1FF),
                 ),
               ),
             ),
             Stack(children: <Widget>[
-              CarouselSlider(
-                items: imageSliders,
-                options: CarouselOptions(
-                  enlargeCenterPage: true,
-                  height: screenSize.height * 0.3,
-                  onPageChanged: (index, reason) {
-                    setState(() {
-                      currentPage = index;
-                    });
-                  },
-                ),
-                carouselController: _controller,
-              ),
-              Positioned(
-                bottom: screenSize.height * 0.12,
-                left: screenSize.width * 0.01,
-                child: IconButton(
-                  color: const Color(0xFF00FF05),
-                  iconSize: screenSize.height * 0.05,
-                  splashRadius: 0.1,
-                  icon: const Icon(Icons.arrow_back_ios),
-                  onPressed: () {
-                    _controller.previousPage();
-                  },
-                ),
-              ),
-              Positioned(
-                bottom: screenSize.height * 0.12,
-                right: screenSize.width * 0.01,
-                child: IconButton(
-                  color: const Color(0xFF00FF05),
-                  iconSize: screenSize.height * 0.05,
-                  splashRadius: 0.1,
-                  icon: const Icon(Icons.arrow_forward_ios),
-                  onPressed: () {
-                    _controller.nextPage();
-                  },
+              Container(
+                child: Center(
+                  child: Image.asset(
+                    'assets/asteroids.png',
+                    fit: BoxFit.contain,
+                  ),
                 ),
               ),
             ]),
@@ -175,36 +119,33 @@ class _HomeState extends State<Home> {
                     'assets/openBtn.png',
                     fit: BoxFit.fill,
                     color:
-                        _installing ? Color(0xFF00FF05).withOpacity(0.5) : null,
+                        _installing ? Color(0xFF3AA1FF).withOpacity(0.5) : null,
                     colorBlendMode: _installing ? BlendMode.modulate : null,
                   ),
                 ),
               ),
             ),
-            imgList[currentPage]['gameName'] != 'asteroids'
-                ? Container()
-                : Padding(
-                    padding: EdgeInsets.only(bottom: screenSize.height * 0.05),
-                    child: GestureDetector(
-                      onTap: () {
-                        if (_installing) {
-                          return;
-                        }
+            Padding(
+              padding: EdgeInsets.only(bottom: screenSize.height * 0.05),
+              child: GestureDetector(
+                onTap: () {
+                  if (_installing) {
+                    return;
+                  }
 
-                        installGame(context);
-                      },
-                      child: _installing
-                          ? CircularProgressIndicator(
-                              color: const Color(0xFF00FF05))
-                          : Container(
-                              height: screenSize.height * 0.07,
-                              child: Image.asset(
-                                'assets/installBtn.png',
-                                fit: BoxFit.fill,
-                              ),
-                            ),
-                    ),
-                  ),
+                  installGame(context);
+                },
+                child: _installing
+                    ? CircularProgressIndicator(color: const Color(0xFF3AA1FF))
+                    : Container(
+                        height: screenSize.height * 0.07,
+                        child: Image.asset(
+                          'assets/installBtn.png',
+                          fit: BoxFit.fill,
+                        ),
+                      ),
+              ),
+            ),
           ],
         ),
       ],
@@ -229,7 +170,7 @@ class _HomeState extends State<Home> {
                   onTap: () => pushToAbout(context),
                   child: Icon(
                     Icons.info_outline,
-                    color: const Color(0xFF00FF05),
+                    color: const Color(0xFF3AA1FF),
                     size: screenSize.height * 0.08,
                   ),
                 ),
@@ -238,7 +179,7 @@ class _HomeState extends State<Home> {
                 onTap: () => pushToSettings(context),
                 child: Icon(
                   Icons.settings,
-                  color: const Color(0xFF00FF05),
+                  color: const Color(0xFF3AA1FF),
                   size: screenSize.height * 0.08,
                 ),
               ),
@@ -253,47 +194,16 @@ class _HomeState extends State<Home> {
               style: TextStyle(
                 fontFamily: 'RetroFont',
                 fontSize: screenSize.height * 0.075,
-                color: const Color(0xFF00FF05),
+                color: const Color(0xFF3AA1FF),
               ),
             ),
             Stack(children: <Widget>[
-              CarouselSlider(
-                items: imageSliders,
-                options: CarouselOptions(
-                  enlargeCenterPage: true,
-                  height: screenSize.height * 0.5,
-                  onPageChanged: (index, reason) {
-                    setState(() {
-                      currentPage = index;
-                    });
-                  },
-                ),
-                carouselController: _controller,
-              ),
-              Positioned(
-                bottom: screenSize.height * 0.16,
-                left: screenSize.width * 0.1,
-                child: IconButton(
-                  color: const Color(0xFF00FF05),
-                  iconSize: screenSize.height * 0.15,
-                  splashRadius: 0.1,
-                  icon: const Icon(Icons.arrow_back_ios),
-                  onPressed: () {
-                    _controller.previousPage();
-                  },
-                ),
-              ),
-              Positioned(
-                bottom: screenSize.height * 0.16,
-                right: screenSize.width * 0.1,
-                child: IconButton(
-                  color: const Color(0xFF00FF05),
-                  iconSize: screenSize.height * 0.15,
-                  splashRadius: 0.1,
-                  icon: const Icon(Icons.arrow_forward_ios),
-                  onPressed: () {
-                    _controller.nextPage();
-                  },
+              Container(
+                child: Center(
+                  child: Image.asset(
+                    'assets/asteroids.png',
+                    fit: BoxFit.contain,
+                  ),
                 ),
               ),
             ]),
@@ -311,32 +221,29 @@ class _HomeState extends State<Home> {
                   'assets/openBtn.png',
                   fit: BoxFit.fill,
                   color:
-                      _installing ? Color(0xFF00FF05).withOpacity(0.5) : null,
+                      _installing ? Color(0xFF3AA1FF).withOpacity(0.5) : null,
                   colorBlendMode: _installing ? BlendMode.modulate : null,
                 ),
               ),
             ),
-            imgList[currentPage]['gameName'] != 'asteroids'
-                ? Container()
-                : GestureDetector(
-                    onTap: () {
-                      if (_installing) {
-                        return;
-                      }
+            GestureDetector(
+              onTap: () {
+                if (_installing) {
+                  return;
+                }
 
-                      installGame(context);
-                    },
-                    child: _installing
-                        ? CircularProgressIndicator(
-                            color: const Color(0xFF00FF05))
-                        : Container(
-                            height: screenSize.height * 0.1,
-                            child: Image.asset(
-                              'assets/installBtn.png',
-                              fit: BoxFit.fill,
-                            ),
-                          ),
-                  ),
+                installGame(context);
+              },
+              child: _installing
+                  ? CircularProgressIndicator(color: const Color(0xFF3AA1FF))
+                  : Container(
+                      height: screenSize.height * 0.1,
+                      child: Image.asset(
+                        'assets/installBtn.png',
+                        fit: BoxFit.fill,
+                      ),
+                    ),
+            ),
           ],
         ),
       ],
@@ -349,11 +256,8 @@ class _HomeState extends State<Home> {
     if (ip == null) {
       // set default values for variables
       store.write('serverIp', '192.168.0.123');
-      store.write('serverPort', '3123');
+      store.write('serverPort', '3124');
       store.write('asteroidsPort', '8129');
-      store.write('pacmanPort', '8128');
-      store.write('snakePort', '8114');
-      store.write('pongPort', '8112');
     }
     try {
       // Configure socket to connect with server ip
@@ -379,7 +283,7 @@ class _HomeState extends State<Home> {
   // "context" is used for pushing Navigator
   void openGame(BuildContext context) {
     // Get game name based on current page
-    final String game = imgList[currentPage]['gameName'];
+    final String game = 'asteroids';
 
     socket.emit('open-game', game);
     print('open: ' + game);
@@ -411,16 +315,17 @@ class _HomeState extends State<Home> {
 
       await client.execute('echo lq | sudo -S apt install git-all');
 
-      await client.execute('echo lq | sudo -S rm -rf lg-retro-gaming');
+      await client
+          .execute('echo lq | sudo -S rm -rf asteroids-lg-retro-gaming');
       await client.execute('echo lq | sudo -S rm -rf galaxy-asteroids');
 
       await client.execute(
-          'echo lq | sudo -S git clone https://github.com/LiquidGalaxyLAB/lg-retro-gaming');
+          'echo lq | sudo -S git clone https://github.com/LiquidGalaxyLAB/asteroids-lg-retro-gaming');
       await client.execute(
           'echo lq | sudo -S git clone https://github.com/LiquidGalaxyLAB/galaxy-asteroids');
 
       await client.execute(
-          'cd ~/lg-retro-gaming && bash ~/lg-retro-gaming/install.sh lq');
+          'cd ~/asteroids-lg-retro-gaming && bash ~/asteroids-lg-retro-gaming/install.sh lq');
       await client.execute(
           'cd ~/galaxy-asteroids && bash ~/galaxy-asteroids/install.sh lq');
 

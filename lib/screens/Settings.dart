@@ -26,9 +26,10 @@ class _SettingsState extends State<Settings> {
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
           title: Text('Settings'),
-          backgroundColor: Colors.black,
+          backgroundColor: const Color(0xFF2D2D2D),
+          elevation: 0,
         ),
-        backgroundColor: Color(0xff161616),
+        backgroundColor: Color(0xFF2D2D2D),
         body: OrientationBuilder(
           builder: (BuildContext context, Orientation orientation) {
             return orientation == Orientation.portrait
@@ -56,11 +57,11 @@ class _SettingsState extends State<Settings> {
                   padding:
                       EdgeInsets.symmetric(vertical: screenSize.width * 0.01),
                   child: TextFormField(
-                    style: TextStyle(color: Color(0xFF00FF05)),
+                    style: TextStyle(color: Color(0xFF3AA1FF)),
                     initialValue: serverIp,
                     decoration: InputDecoration(
                       labelText: 'Server IP',
-                      labelStyle: TextStyle(color: Color(0xFF00FF05)),
+                      labelStyle: TextStyle(color: Color(0xFF3AA1FF)),
                       errorBorder: OutlineInputBorder(
                           borderSide: BorderSide(
                         color: Colors.red,
@@ -68,13 +69,13 @@ class _SettingsState extends State<Settings> {
                       )),
                       focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(
-                          color: Colors.green,
+                          color: const Color(0xFF3AA1FF),
                           width: screenSize.height * 0.003,
                         ),
                       ),
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(
-                          color: Colors.green,
+                          color: const Color(0xFF3AA1FF),
                           width: screenSize.height * 0.003,
                         ),
                       ),
@@ -88,7 +89,7 @@ class _SettingsState extends State<Settings> {
                   padding:
                       EdgeInsets.symmetric(vertical: screenSize.width * 0.01),
                   child: TextFormField(
-                    style: TextStyle(color: Color(0xFF00FF05)),
+                    style: TextStyle(color: Color(0xFF3AA1FF)),
                     initialValue: serverPort,
                     decoration: InputDecoration(
                       errorBorder: OutlineInputBorder(
@@ -97,16 +98,16 @@ class _SettingsState extends State<Settings> {
                         width: screenSize.height * 0.003,
                       )),
                       labelText: 'Server Port',
-                      labelStyle: TextStyle(color: Color(0xFF00FF05)),
+                      labelStyle: TextStyle(color: Color(0xFF3AA1FF)),
                       focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(
-                          color: Colors.green,
+                          color: const Color(0xFF3AA1FF),
                           width: screenSize.height * 0.003,
                         ),
                       ),
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(
-                          color: Colors.green,
+                          color: const Color(0xFF3AA1FF),
                           width: screenSize.height * 0.003,
                         ),
                       ),
@@ -120,7 +121,7 @@ class _SettingsState extends State<Settings> {
                   padding:
                       EdgeInsets.symmetric(vertical: screenSize.width * 0.01),
                   child: TextFormField(
-                    style: TextStyle(color: Color(0xFF00FF05)),
+                    style: TextStyle(color: Color(0xFF3AA1FF)),
                     initialValue: asteroidsPort,
                     decoration: InputDecoration(
                       errorBorder: OutlineInputBorder(
@@ -129,16 +130,16 @@ class _SettingsState extends State<Settings> {
                         width: screenSize.height * 0.003,
                       )),
                       labelText: 'Asteroids Port',
-                      labelStyle: TextStyle(color: Color(0xFF00FF05)),
+                      labelStyle: TextStyle(color: Color(0xFF3AA1FF)),
                       focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(
-                          color: Colors.green,
+                          color: const Color(0xFF3AA1FF),
                           width: screenSize.height * 0.003,
                         ),
                       ),
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(
-                          color: Colors.green,
+                          color: const Color(0xFF3AA1FF),
                           width: screenSize.height * 0.003,
                         ),
                       ),
@@ -147,102 +148,6 @@ class _SettingsState extends State<Settings> {
                     validator: (input) => input?.length == 0
                         ? 'Asteroids port is required'
                         : null,
-                  ),
-                ),
-                Padding(
-                  padding:
-                      EdgeInsets.symmetric(vertical: screenSize.width * 0.01),
-                  child: TextFormField(
-                    style: TextStyle(color: Color(0xFF00FF05)),
-                    initialValue: pacmanPort,
-                    decoration: InputDecoration(
-                      errorBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                        color: Colors.red,
-                        width: screenSize.height * 0.003,
-                      )),
-                      labelText: 'Pacman Port',
-                      labelStyle: TextStyle(color: Color(0xFF00FF05)),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Colors.green,
-                          width: screenSize.height * 0.003,
-                        ),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Colors.green,
-                          width: screenSize.height * 0.003,
-                        ),
-                      ),
-                    ),
-                    onSaved: (input) => store.write('pacmanPort', input),
-                    validator: (input) =>
-                        input?.length == 0 ? 'Pacman port is required' : null,
-                  ),
-                ),
-                Padding(
-                  padding:
-                      EdgeInsets.symmetric(vertical: screenSize.width * 0.01),
-                  child: TextFormField(
-                    style: TextStyle(color: Color(0xFF00FF05)),
-                    initialValue: snakePort,
-                    decoration: InputDecoration(
-                      errorBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                        color: Colors.red,
-                        width: screenSize.height * 0.003,
-                      )),
-                      labelText: 'Snake Port',
-                      labelStyle: TextStyle(color: Color(0xFF00FF05)),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Colors.green,
-                          width: screenSize.height * 0.003,
-                        ),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Colors.green,
-                          width: screenSize.height * 0.003,
-                        ),
-                      ),
-                    ),
-                    onSaved: (input) => store.write('snakePort', input),
-                    validator: (input) =>
-                        input?.length == 0 ? 'Snake port is required' : null,
-                  ),
-                ),
-                Padding(
-                  padding:
-                      EdgeInsets.symmetric(vertical: screenSize.width * 0.01),
-                  child: TextFormField(
-                    style: TextStyle(color: Color(0xFF00FF05)),
-                    initialValue: pongPort,
-                    decoration: InputDecoration(
-                      errorBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                        color: Colors.red,
-                        width: screenSize.height * 0.003,
-                      )),
-                      labelText: 'Pong Port',
-                      labelStyle: TextStyle(color: Color(0xFF00FF05)),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Colors.green,
-                          width: screenSize.height * 0.003,
-                        ),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Colors.green,
-                          width: screenSize.height * 0.003,
-                        ),
-                      ),
-                    ),
-                    onSaved: (input) => store.write('pongPort', input),
-                    validator: (input) =>
-                        input?.length == 0 ? 'Pong port is required' : null,
                   ),
                 ),
                 Padding(
@@ -288,7 +193,7 @@ class _SettingsState extends State<Settings> {
                         EdgeInsets.symmetric(vertical: screenSize.width * 0.01),
                     child: TextFormField(
                       initialValue: serverIp,
-                      style: TextStyle(color: Color(0xFF00FF05)),
+                      style: TextStyle(color: Color(0xFF3AA1FF)),
                       decoration: InputDecoration(
                         errorBorder: OutlineInputBorder(
                             borderSide: BorderSide(
@@ -296,16 +201,16 @@ class _SettingsState extends State<Settings> {
                           width: screenSize.height * 0.003,
                         )),
                         labelText: 'Server IP',
-                        labelStyle: TextStyle(color: Color(0xFF00FF05)),
+                        labelStyle: TextStyle(color: Color(0xFF3AA1FF)),
                         focusedBorder: OutlineInputBorder(
                           borderSide: BorderSide(
-                            color: Color(0xFF00FF05),
+                            color: Color(0xFF3AA1FF),
                             width: screenSize.height * 0.003,
                           ),
                         ),
                         enabledBorder: OutlineInputBorder(
                           borderSide: BorderSide(
-                            color: Color(0xFF00FF05),
+                            color: Color(0xFF3AA1FF),
                             width: screenSize.height * 0.003,
                           ),
                         ),
@@ -319,7 +224,7 @@ class _SettingsState extends State<Settings> {
                     padding:
                         EdgeInsets.symmetric(vertical: screenSize.width * 0.01),
                     child: TextFormField(
-                      style: TextStyle(color: Color(0xFF00FF05)),
+                      style: TextStyle(color: Color(0xFF3AA1FF)),
                       initialValue: serverPort,
                       decoration: InputDecoration(
                         errorBorder: OutlineInputBorder(
@@ -328,16 +233,16 @@ class _SettingsState extends State<Settings> {
                           width: screenSize.height * 0.003,
                         )),
                         labelText: 'Server Port',
-                        labelStyle: TextStyle(color: Color(0xFF00FF05)),
+                        labelStyle: TextStyle(color: Color(0xFF3AA1FF)),
                         focusedBorder: OutlineInputBorder(
                           borderSide: BorderSide(
-                            color: Color(0xFF00FF05),
+                            color: Color(0xFF3AA1FF),
                             width: screenSize.height * 0.003,
                           ),
                         ),
                         enabledBorder: OutlineInputBorder(
                           borderSide: BorderSide(
-                            color: Color(0xFF00FF05),
+                            color: Color(0xFF3AA1FF),
                             width: screenSize.height * 0.003,
                           ),
                         ),
@@ -351,7 +256,7 @@ class _SettingsState extends State<Settings> {
                     padding:
                         EdgeInsets.symmetric(vertical: screenSize.width * 0.01),
                     child: TextFormField(
-                      style: TextStyle(color: Color(0xFF00FF05)),
+                      style: TextStyle(color: Color(0xFF3AA1FF)),
                       initialValue: asteroidsPort,
                       decoration: InputDecoration(
                         errorBorder: OutlineInputBorder(
@@ -360,16 +265,16 @@ class _SettingsState extends State<Settings> {
                           width: screenSize.height * 0.003,
                         )),
                         labelText: 'Asteroids Port',
-                        labelStyle: TextStyle(color: Color(0xFF00FF05)),
+                        labelStyle: TextStyle(color: Color(0xFF3AA1FF)),
                         focusedBorder: OutlineInputBorder(
                           borderSide: BorderSide(
-                            color: Color(0xFF00FF05),
+                            color: Color(0xFF3AA1FF),
                             width: screenSize.height * 0.003,
                           ),
                         ),
                         enabledBorder: OutlineInputBorder(
                           borderSide: BorderSide(
-                            color: Color(0xFF00FF05),
+                            color: Color(0xFF3AA1FF),
                             width: screenSize.height * 0.003,
                           ),
                         ),
@@ -378,102 +283,6 @@ class _SettingsState extends State<Settings> {
                       validator: (input) => input?.length == 0
                           ? 'Asteroids port is required'
                           : null,
-                    ),
-                  ),
-                  Padding(
-                    padding:
-                        EdgeInsets.symmetric(vertical: screenSize.width * 0.01),
-                    child: TextFormField(
-                      style: TextStyle(color: Color(0xFF00FF05)),
-                      initialValue: pacmanPort,
-                      decoration: InputDecoration(
-                        errorBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                          color: Colors.red,
-                          width: screenSize.height * 0.003,
-                        )),
-                        labelText: 'Pacman Port',
-                        labelStyle: TextStyle(color: Color(0xFF00FF05)),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Color(0xFF00FF05),
-                            width: screenSize.height * 0.003,
-                          ),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Color(0xFF00FF05),
-                            width: screenSize.height * 0.003,
-                          ),
-                        ),
-                      ),
-                      onSaved: (input) => store.write('pacmanPort', input),
-                      validator: (input) =>
-                          input?.length == 0 ? 'Pacman port is required' : null,
-                    ),
-                  ),
-                  Padding(
-                    padding:
-                        EdgeInsets.symmetric(vertical: screenSize.width * 0.01),
-                    child: TextFormField(
-                      style: TextStyle(color: Color(0xFF00FF05)),
-                      initialValue: snakePort,
-                      decoration: InputDecoration(
-                        errorBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                          color: Colors.red,
-                          width: screenSize.height * 0.003,
-                        )),
-                        labelText: 'Snake Port',
-                        labelStyle: TextStyle(color: Color(0xFF00FF05)),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Color(0xFF00FF05),
-                            width: screenSize.height * 0.003,
-                          ),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Color(0xFF00FF05),
-                            width: screenSize.height * 0.003,
-                          ),
-                        ),
-                      ),
-                      onSaved: (input) => store.write('snakePort', input),
-                      validator: (input) =>
-                          input?.length == 0 ? 'Snake port is required' : null,
-                    ),
-                  ),
-                  Padding(
-                    padding:
-                        EdgeInsets.symmetric(vertical: screenSize.width * 0.01),
-                    child: TextFormField(
-                      style: TextStyle(color: Color(0xFF00FF05)),
-                      initialValue: pongPort,
-                      decoration: InputDecoration(
-                        errorBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                          color: Colors.red,
-                          width: screenSize.height * 0.003,
-                        )),
-                        labelText: 'Pong Port',
-                        labelStyle: TextStyle(color: Color(0xFF00FF05)),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Color(0xFF00FF05),
-                            width: screenSize.height * 0.003,
-                          ),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Color(0xFF00FF05),
-                            width: screenSize.height * 0.003,
-                          ),
-                        ),
-                      ),
-                      onSaved: (input) => store.write('pongPort', input),
-                      validator: (input) =>
-                          input?.length == 0 ? 'Pong port is required' : null,
                     ),
                   ),
                   Padding(

@@ -7,7 +7,7 @@ import 'package:lg_retro_gaming/screens/Home.dart';
 final List<String> images = [
   'assets/gsoc.png',
   'assets/LGLogo.png',
-  'assets/LGRG_Logo.png',
+  'assets/app_logo.png',
   'assets/LGLab_Logo.png',
   'assets/LogoLGEU.png',
   'assets/TIC_Logo.png',
@@ -53,7 +53,7 @@ class _SplashScreenState extends State<SplashScreen> {
               Container(
                 child: Center(
                   child: Image.asset(
-                    'assets/LGRG_Logo.png',
+                    'assets/app_logo.png',
                     fit: BoxFit.contain,
                   ),
                 ),

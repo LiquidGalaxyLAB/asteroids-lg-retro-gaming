@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Liquid Galaxy Retro Gaming',
+      title: 'Asteroids Liquid Galaxy Retro Gaming',
       initialRoute: '/splash',
       routes: {
         '/splash': (context) => SplashScreen(),
