@@ -1,9 +1,9 @@
 name: lg_retro_gaming
 description: A new Flutter project.
 
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
-version: 1.0.0+1
+version: 1.0.0
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
@@ -14,7 +14,6 @@ dependencies:
 
   cupertino_icons: ^1.0.2
   socket_io_client: ^1.0.1
-  carousel_slider: ^4.0.0-nullsafety.0
   webview_flutter: ^2.0.8
   get_storage: ^2.0.2
   qr_flutter: ^4.0.0
