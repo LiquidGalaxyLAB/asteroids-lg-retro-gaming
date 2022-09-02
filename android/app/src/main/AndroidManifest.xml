@@ -1,8 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.leoruas.lg_retro_gaming">
+    package="com.letcr.asteroids_lg_retro_gaming">
    <uses-permission android:name="android.permission.INTERNET"/>
    <application
-        android:label="LG Retro Gaming"
+        android:label="Asteroids LG Retro Gaming"
         android:icon="@mipmap/ic_launcher"
         android:usesCleartextTraffic="true">
         <activity

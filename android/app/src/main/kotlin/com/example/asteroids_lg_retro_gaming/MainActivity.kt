@@ -1,4 +1,4 @@
-package com.leoruas.lg_retro_gaming
+package com.letcr.asteroids_lg_retro_gaming
 
 import io.flutter.embedding.android.FlutterActivity
 

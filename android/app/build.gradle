@@ -39,7 +39,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.leoruas.lg_retro_gaming"
+        applicationId "com.letcr.asteroids_lg_retro_gaming"
         minSdkVersion 20
         targetSdkVersion 31
         multiDexEnabled true
