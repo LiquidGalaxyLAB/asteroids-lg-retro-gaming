@@ -2,7 +2,7 @@
 
 PW="$1"
 
-BASE_FOLDER="/home/lg/lg-retro-gaming"
+BASE_FOLDER="/home/lg/asteroids-lg-retro-gaming"
 
 #Create file name with name as date
 date=$(date +%Y-%m-%d)
@@ -12,17 +12,17 @@ filename="$date.txt"
 time=$(date +%H:%M:%S)
 echo "[$time] Installing Liquid Galaxy Retro Gaming..."
 
-# Open port 3123
+# Open port 3124
 
 LINE=`cat /etc/iptables.conf | grep "tcp" | grep "8111" | awk -F " -j" '{print $1}'`
 
-RESULT=$LINE",3123"
+RESULT=$LINE",3124"
 
-DATA=`cat /etc/iptables.conf | grep "tcp" | grep "8111" | grep "3123"`
+DATA=`cat /etc/iptables.conf | grep "tcp" | grep "8111" | grep "3124"`
 
 if [ "$DATA" == "" ]; then
     time=$(date +%H:%M:%S)
-    echo "[$time] Port 3123 not open, opening port..."
+    echo "[$time] Port 3124 not open, opening port..."
     echo $PW | sudo -S sed -i "s/$LINE/$RESULT/g" /etc/iptables.conf
 else
     time=$(date +%H:%M:%S)
@@ -40,12 +40,12 @@ cd ..
 echo $PW | sudo -S chown lg:lg /home/lg/.pm2/rpc.sock /home/lg/.pm2/pub.sock
 
 # Stop server if already started
-echo $PW | sudo -S pm2 delete LGRG_PORT:3123 2> /dev/null
+echo $PW | sudo -S pm2 delete ALGRG_PORT:3124 2> /dev/null
 
 # Start server
 time=$(date +%H:%M:%S)
 echo "[$time] Starting pm2..."
-echo $PW | sudo -S pm2 start $BASE_FOLDER/server/index.js --name LGRG_PORT:3123
+echo $PW | sudo -S pm2 start $BASE_FOLDER/server/index.js --name ALGRG_PORT:3124
 
 echo $PW | sudo -S pm2 save
 
