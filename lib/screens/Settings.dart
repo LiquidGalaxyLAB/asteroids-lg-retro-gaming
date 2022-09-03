@@ -13,9 +13,6 @@ class _SettingsState extends State<Settings> {
   final String? serverIp = store.read('serverIp');
   final String? serverPort = store.read('serverPort');
   final String? asteroidsPort = store.read('asteroidsPort');
-  final String? pacmanPort = store.read('pacmanPort');
-  final String? snakePort = store.read('snakePort');
-  final String? pongPort = store.read('pongPort');
 
   @override
   Widget build(BuildContext context) {
