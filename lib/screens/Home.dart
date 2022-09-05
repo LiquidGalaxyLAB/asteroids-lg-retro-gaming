@@ -190,10 +190,10 @@ class _HomeState extends State<Home> {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             Text(
-              "Liquid Galaxy Retro Gaming",
+              "Asteroids Liquid Galaxy Retro Gaming",
               style: TextStyle(
                 fontFamily: 'RetroFont',
-                fontSize: screenSize.height * 0.075,
+                fontSize: screenSize.width * 0.03,
                 color: const Color(0xFF3AA1FF),
               ),
             ),
